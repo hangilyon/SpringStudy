@@ -1,0 +1,15 @@
+package com.care.test02;
+
+public class SaveClass {
+	private int num1, num2, result;
+	private String op;
+	private PrintClass pc;
+	private OperationClass oc;
+	
+	public void operationClass() {
+		result = oc.operation(num1,num2,op);
+	}
+	public void printClass() {
+		pc.printFunc(num1,op,num2,result);
+	}
+}

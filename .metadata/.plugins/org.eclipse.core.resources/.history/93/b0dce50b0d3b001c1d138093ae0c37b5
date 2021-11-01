@@ -1,0 +1,7 @@
+package com.care.test02;
+
+public class OperationClass {
+	public int operation(int num1, int num2, String op) {
+		return result;
+	}
+}

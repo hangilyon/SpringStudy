@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="oc" class="com.care.test02.OperationClass"/>
+	<bean id="pc" class="com.care.test02.PrintClass"/>
+	<bean id="sc" class="com.care.test02.SaveClass">
+		<property name="num1" value=""/>
+		<property name="num2" value=""/>
+		<property name="result" value=""/>
+		<property name="op" value=""/>
+		
+		<property name="pc" ref="pc"/>
+		<property name="oc" ref="oc"/>
+	</bean>
+
+</beans>

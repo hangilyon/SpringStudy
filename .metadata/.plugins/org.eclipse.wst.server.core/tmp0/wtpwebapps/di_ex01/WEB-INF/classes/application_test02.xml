@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="oc1" class="com.care.test02.OperationClass"/>
+	<bean id="pc1" class="com.care.test02.PrintClass"/>
+	<bean id="savec" class="com.care.test02.SaveClass">
+		<property name="oc" ref="oc1"/>
+		<property name="pc" ref="oc1"/>
+	</bean>
+
+</beans>
