@@ -7,10 +7,10 @@ public class SaveClass {
 	private OperationClass oc;
 	
 	public void operationClass() {
-		result = oc.operation(num1,num2,op);
+		this.result = getOc().operation(this.num1,this.num2,this.op);
 	}
 	public void printClass() {
-		pc.printFunc(num1,op,num2,result);
+		getPc().printFunc(this.num1,this.op,this.num2,this.result);
 	}
 	
 	public int getResult() {
