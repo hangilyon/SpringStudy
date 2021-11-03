@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<!-- 디스패처서블릿의 설정 내용들 -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- @Controller 어노테이션을 빈(객체)으로 등록해준다. -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- 정적 파일을 관리 (css, js, img 등) -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- ViewResolver : Bean 등록 설정
+		prefix : 접두어 , suffix : 접미어
+		Controller 에서 return 으로 돌아오는 문자열을 jsp 파일의 위치를 만들어 준다.
+		ex) Controller 에서 return "index" 라면, /WEB-INF/views/index.jsp 로 만들어줌
+	 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- base-package 에 등록되어 있는 경로의 특정 어노테이션( @ ) 들을 Bean으로 등록해준다 -->
+	<context:component-scan base-package="com.care.root" />
+	<context:component-scan base-package="com.care.get_post" />
+	
+	<beans:bean id="ms22" class="com.care.root.MemberService" />
+
+</beans:beans>
