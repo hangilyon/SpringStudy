@@ -13,8 +13,7 @@ public class MemberDAO {
 	public MemberDAO() {
 		list = new ArrayList<MemberDTO>();
 	}
-	public ArrayList<MemberDTO> inputMem(MemberDTO dto){
+	public void inputMem(MemberDTO dto){
 		list.add(dto);
-		return list;
 	}
 }

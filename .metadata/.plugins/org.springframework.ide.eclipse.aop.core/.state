@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
 <aop-project name="mvc_quiz"/>
+<aop-project name="mvc_quiz_ans"/>
 <aop-project name="di_ex01"/>
 <aop-project name="mvc_ex02"/>
 <aop-project name="mvc_ex03"/>

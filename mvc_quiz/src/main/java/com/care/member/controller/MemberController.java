@@ -29,7 +29,7 @@ public class MemberController {
 	}
 	// 회원가입
 	@RequestMapping("/insertMember")
-	public String insertMember(MemberDTO dto, Model model) {
+	public String insertMember(MemberDTO dto) {
 		System.out.println(dto);
 		dao.inputMem(dto);
 		return "member/index";

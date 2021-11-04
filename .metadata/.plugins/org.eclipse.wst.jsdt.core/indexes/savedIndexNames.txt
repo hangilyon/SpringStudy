@@ -2,10 +2,6 @@ INDEX VERSION 1.4+C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.wst.j
 3673349202.index
 2397132600.index
 618276980.index
-2013412045.index
-260273293.index
-1432903566.index
-3281095411.index
 4171201707.index
-3029776997.index
-122484439.index
+2013412045.index
+19864760.index
