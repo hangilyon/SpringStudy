@@ -153,16 +153,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <!--  <Context docBase="di_ex01" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:di_ex01"/> -->
-      <!--<Context docBase="mvc_ex02" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:mvc_ex02"/>-->
-      <!-- <Context docBase="quiz_01" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:quiz_01"/>-->
-      <!--<Context docBase="mvc_ex03" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:mvc_ex03"/>-->
-<<<<<<< HEAD
-      <Context docBase="C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\mvc_quiz" path="/member" reloadable="true" source="org.eclipse.jst.jee.server:mvc_quiz"/></Host>
-=======
-      <!--<Context docBase="mvc_quiz" path="/member" reloadable="true" source="org.eclipse.jst.jee.server:mvc_quiz"/>-->
-      <Context docBase="C:\java\Spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\java\Spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\mvc_quiz_ans" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:mvc_quiz_ans"/></Host>
->>>>>>> 5d3363d20542d706e8bd18c61c6fbe521150c2c1
+      <Context docBase="C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\mvc_quiz_ans" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:mvc_quiz_ans"/></Host>
     </Engine>
   </Service>
 </Server>
