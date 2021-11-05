@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INDEX VERSION 1.131+C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.jdt.core
 1818663087.index
 1105618418.index
@@ -9,6 +10,10 @@ INDEX VERSION 1.131+C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.jdt
 282042783.index
 4103517849.index
 2492890765.index
+=======
+INDEX VERSION 1.131+C:\java\Spring-workspace\.metadata\.plugins\org.eclipse.jdt.core
+260273293.index
+>>>>>>> ac738bb765d53f5e839e02dd7bf248e810d75a44
 19864760.index
 84541962.index
 85472688.index
@@ -20,6 +25,7 @@ INDEX VERSION 1.131+C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.jdt
 270834377.index
 3857634848.index
 3029776997.index
+<<<<<<< HEAD
 3764816743.index
 3451012743.index
 24357264.index
@@ -36,3 +42,11 @@ INDEX VERSION 1.131+C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.jdt
 3729230971.index
 3576963990.index
 1982947912.index
+=======
+379259196.index
+1432903566.index
+3281095411.index
+3648926063.index
+122484439.index
+447543180.index
+>>>>>>> ac738bb765d53f5e839e02dd7bf248e810d75a44
