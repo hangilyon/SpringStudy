@@ -5,8 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	function init(){
+		popup()
+	}
+	function popup(){
+		var jsp = "popup";
+		var name = "popup";
+		var size = "width=400, height=300, left=50, top=50";
+		if(${myCookie == null}){
+			window.open(jsp,name,size);
+		}
+	}
+</script>
 </head>
-<body>cookie.jsp<br>
+<body onload="init()">cookie.jsp<br>
 
 </body>
 </html>
