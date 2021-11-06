@@ -11,15 +11,15 @@
 		popup()
 	}
 	function popup(){
+
 		var url = "popup.html";
 		var name = "popup test";
 		var option = "width = 500, height = 500, top = 100,
 		left = 200, location = no";
 		window.open(url,name,option);
-	}
+
 </script>
 </head>
 <body onload="init()">cookie.jsp<br>
-<c:if test=""></c:if>
 </body>
 </html>
