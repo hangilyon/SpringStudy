@@ -1,0 +1,61 @@
+${javafxCompControls}
+
+lambda
+	인터페이스 값을 쉽게 사용하도록 하는 것
+	Lambda01 lam02 = () -> System.out.println("main 0202020202");
+	메소드가 무조건 하나 있어야 함
+	람다식을 썻을 때 코드가 많이 줄어듦
+
+b2.setContentDisplay(ContentDisplay.RIGHT); 
+사용하시면 글자를 오른쪽으로 보낼수 있어요.
+
+scene builder 설치
+scene builder 연결
+window proferences - JavaFX - SceneBuilder executable
+- SceneBuilder.exe 파일 실행
+매개변수에 
+New FXML Document 생성
+${javafxCompControls},javafx.fxml
+Controller => 클래스 파일을 연결 (패키지.클래스)
+public class Controller implements Initializable
+메인에서 스타트 호출 해당하는 클래스파일이 객체화 그리고 다시 돌아옴
+
+이점 : 이벤트 설정
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

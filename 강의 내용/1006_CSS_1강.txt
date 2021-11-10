@@ -1,0 +1,89 @@
+*{
+color: red;
+}
+/* 태그 선택자*/
+h1 {background-color:yellow;}
+	
+/* class선택자 */
+	label.class01 {
+	background-color:aqua; color: maroon; font-size: 20pt;
+	}
+	
+/* id 선택자*/
+	#id01{
+	background-color: olive; color: navy; font-size: 20pt;
+	}
+	
+/* 가상 선택자 */
+	.class01:hover {
+	// 마우스를 가져다 대면 변함
+	background-color:black; color: maroon; font-size: 20pt;
+	}
+// id가 들어가면 적용 안됨
+
+/* link : 방문하지 않은곳, visited : 방문한 곳 hover : 마우스 올렸을 때 active : 클릭했을 때 */
+.a:link{color:aqua; text-decoration:none;}
+// text-decoration = 링크에 밑줄 표시가 없음
+.a:visited{color:red;}
+.a:hover{text-decoration:overline; color: black;}
+.a:active{background-color: lime;}
+
+
+.div01 {width:200px; height: 100px; color: blue;
+		background-color: green; opacity: 0.9;}
+.div01:hover{width:400px; height: 50px; color: red;
+		background-color: yellow; opacity: 0.5;
+		transition : all 1.5s}
+	
+nav ul { list-style:none; display: flex;}
+nav ul li {margin:0 10px; padding: 10px;}
+nav ul li a { text-decoration:none; color:white;}
+nav ul li a:hover{
+	color:orange;
+	border-bottom: 3px solid orange;
+	padding-bottom: 3px;
+	transition : all 0.25s;
+	}
+//	solid = 한줄로 만든다
+	dotted = 점으로 만든다
+	transition = 시간 동안 변한다.
+ 
+div{
+	background-color: yellow; width:300px;
+	padding:25px;
+	border: 5px solid navy;
+	margin: 25px;
+}
+
+.title{text-shadow: 10px 10px 15px black; font-size:70pt;}
+                    // 오른쪽 아래 번짐 음수면 위로 올라감 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

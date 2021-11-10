@@ -1,0 +1,28 @@
+${javafxCompControls},javafx.fxml
+
+memId
+memPwd
+memName
+
+fxId
+fxPwd
+
+회원가입 : memberShip
+로그인 : login
+
+ex01.main.MainController
+
+연산처리는 무조건 서비스에서 다 한다.
+
+
+
+
+
+
+
+
+
+
+
+
+

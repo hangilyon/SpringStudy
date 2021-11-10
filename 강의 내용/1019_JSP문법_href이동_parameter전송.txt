@@ -1,0 +1,158 @@
+JSP 시작
+
+웹 서버 설치
+
+tomcat 9 설치
+
+HTTP(Hyper Text Tranfer Protocol)
+
+HTTP 
+	- 네트워크에 연결된 컴퓨터가 서로 통신하기 프로토콜
+	- HTTP는 WWW 서비스를 위한 프로토콜이다
+	- 웹 서버와 클라이언트는 HTTP를 이용해서 통신한다
+	
+Protocol
+	- 통신 규약을 의미함
+
+DNS 도메인 네임 시스템
+
+ip 
+	- 인터넷에 연결된 기기를 식별하는 유일한 번호
+port
+	- 주소 표현 방식이다.
+DNS(domain name system)
+	- 일반적으로 도메인 이라고 부른다
+	- 숫자로 된 아이피 주소를 문자로 변환
+	- ip주소를 알려주거나 ip 주소에 대한 도메인 이름을 알려주는 역할
+cmd
+	- nslookup www.naver.com ( 실제 아이피가 나온다 )
+Server 
+	- 서비스를 제공하는 컴퓨터
+Web server
+	- 웹 페이지가 들어 있는 파일을 사용자들에게 제공하는 컴퓨터
+Client
+	- 서비스 제공 받는 컴퓨터
+대표적인 웹 서버
+	- 아파치(Apache)
+	- 인터넷 정보 서버(IIS)
+	- 엔터프라이즈 서버 등...
+
+정적 웹 서비스와 동적 웹 서비스
+
+HTML
+	- 웹 문서를 만들기 위하여 사용하는 기본적인 프로그래밍 언어의 한 종류
+	- 정적 웹 서비스를 제공
+JSP	// 서버 사이드 언어
+	- 동적 웹 서비스를 제공
+	- HTML내에 자바 코드를 삽입하여 웹 서버에서 동적으로 웹 페이지를 생성함
+	- 생성된 웹 페이지를 웹 브라우저에 돌려주는 언어이다.
+Javascript
+	- 객체지향 스크립트 언어로 웹페이지의 동작을 담당한다.
+	- 버튼을 클릭을 했을 경우에 결과를 만들수 있다.
+웹 사이트의 구성요소 3가지
+	- HTML
+	- CSS
+	- Javascript
+	// 클라이언트 사이드 언어
+	// 웹 브라우저에서 번역이 가능한 언어
+	
+JSP 통신 방식
+
+1. 웹 서버에 요청 ( request )
+2. JSP 컨테이너에서 JSP 파일을 서블릿 파일(JAVA 파일)로 변환
+3. JSP 컨테이너에서 클래스 파일 생성 ( 실행하기 위해 기계어로 번역 ) 
+4. JSP 컨테이너에서 메모리에 적재 되어 실행
+5. 웹 서버에서 응답 ( response )
+
+
+	
+jsp 파일은 webapp 에다가 만든다~~
+
+<% %> jsp와 html 문법을 복합적으로 쓸 수 있음
+	
+<h1><%= num+"넘어간다" %></h1>
+// 넘어갈 수 있음
+	
+	<h1>webContent.jsp입니다</h1>
+	
+	
+	<a href="http://localhost:8085/jsp01/test1/test1.jsp">test1 이동 합니다.</a><br><br>
+	<a href="http://localhost:8085/jsp01/test1/test2/test2.jsp">test2 이동 합니다.</a>
+	
+	
+	<h1>절대경로 : /로 시작해야 하며, 경로는 프로젝트 명부터 들어와야 한다.</h1>
+	
+	<a href="/jsp01/test1/test1.jsp">test1 이동 합니다.</a><br><br>
+	<a href="/jsp01/test1/test2/test2.jsp">test2 이동 합니다.</a>
+	
+	
+	<h1>상대경로 : 현재 위치를 기준으로 이동. 처음 /는 빼야 한다</h1>
+	
+	<a href="test1/test1.jsp">test1 이동 합니다.</a><br><br>
+	<a href="test1/test2/test2.jsp">test2 이동 합니다.</a>	
+	
+id : <%= request.getParameter("id") %>
+pwd : <%= request.getParameter("pwd") %>
+	// id와 pwd 값을 request.getParameter 로 받아온다.
+	
+<form action="getMethod.jsp" method="get">
+<form action="postMethod.jsp" method="post">
+
+<% request.setCharacterEncoding("utf-8"); %>
+	// 한글 처리 해줌
+	response.setCharacterEncoding("utf-8");
+	// 응답 한글 처리
+get 방식
+	입력한 값이 url에 붙여서 넘어가는 방식
+	데이터에 대한 양이 한정적이다
+	대용량의 데이터를 보내고자 할 때는 post 방식을 사용
+	개인에 대한 정보 유지 할 때도 post 방식을 사용
+	주 사용 : 검색어 보낼 때 등
+post 방식
+
+내일은 el , jstl 문법 사용할 것
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

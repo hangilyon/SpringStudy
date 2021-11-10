@@ -1,0 +1,74 @@
+document.getElementById('pw').focus()
+// 펑션을 실행했을 때 'pw'라는 기능에 포커스를 맞춰줄 수 있다.
+
+<input type="text" id="id1" onchange="pwdchk()">
+onchange = 포커스가 다른 곳으로 이동 됐을 때 실행
+
+<a href="ex10.html">ex10이동</a>
+// 서버를 거쳤다가 돌아오게 됨
+
+history.forward() history.back()
+// 브라우저에서 기억하고 왔다갔다 함
+
+var result = confirm('탈퇴???')
+// 확인은 true 취소는 false
+
+submit은 누르는 순간 강제성이 나와서 기능으로 취소할 수 없음
+button으로 해결할 것
+
+tr:nth-child(even) {
+	background-color: gray;
+}
+// table의 even 번째 tr에게 css 부여하겠다!
+
+	function init(){
+		var t1 = document.getElementById('target1')
+		var t2 = document.getElementById('target2')
+		t1.addEventListener('click',btn_listener)
+		t2.addEventListener('click',btn_listener)
+	}
+ // t1 과 t2 에 click 이란 이벤트를 부여하고 btn_listener 함수로 이동하겠다
+	function btn_listener(){
+		console.log(event)
+		console.log(event.target)
+	}
+// event 는 누른 태그의 정보를 가지고 옴
+
+html css javascript 화면 구현 
+DB연결 아이디 비밀번호를 서버로 보내줘서 DB와 비교 
+-> JSP , Spring , spring boot // 서버 사이드 언어
+
+JSP
+자바 문법 + JSP 객체들 쓰는 것
+웹을 구동시키기 위한 언어
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

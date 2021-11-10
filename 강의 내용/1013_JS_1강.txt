@@ -1,0 +1,44 @@
+Java Script
+<script type="text/javascript"></script>
+document.write("출력")
+var name = prompt('당신의 이름은?')
+x == y
+x != y
+// 자료형 상관 x
+x === y
+x !== y
+// 자료형 같아야 true
+ 	var : 지역변수로 사용되며 변수의 재 선언이 가능하다
+ 	let : 지역변수로만 사용가능하며 변수의 재 선언이 불가능하다. 딱 한번만 사용이 가능하다
+ 	default(키워드 없음) : 전역변수로 사용가능하다.
+ 	const : 값 변경이 불가능하다. (=final)
+
+function getValue(){}
+return; ()안에 넘겨주는 값 , 받는 값 가능
+console.log() 개발자 모드에 로그를 남겨주는 역할
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

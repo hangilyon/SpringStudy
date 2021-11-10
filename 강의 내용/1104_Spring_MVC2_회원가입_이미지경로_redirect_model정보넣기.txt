@@ -1,0 +1,116 @@
+form 정보 받아오는 3가지 방법
+
+// 첫번째 form name 정보랑 dto 정보랑 같을 경우 dto에 바로 저장
+	public String register(MemberDTO dto) {
+	
+		System.out.println(dto.getId());
+		System.out.println(dto.getName());
+		System.out.println(dto.getPwd());
+
+		return "redirect:/member/index";
+	}
+// 두번째 getParameter 로 받는다
+	public String register1(HttpServletRequest req) {
+		
+		System.out.println(req.getParameter("id"));
+		System.out.println(req.getParameter("pwd"));
+		System.out.println(req.getParameter("name"));
+		
+		return "redirect:/member/index";
+	}
+
+// 세번째 어노테이션 @RequestParam 으로 받는다.
+	public String register2(@RequestParam("id") String id,
+							@RequestParam String name,
+							@RequestParam String pwd) {
+		System.out.println("register 연결 확인");
+		// 서비스이동 -> dao 이동
+		System.out.println(id);
+		System.out.println(pwd);
+		System.out.println(name);
+		
+		return "redirect:/member/index";
+	}
+
+// redirect에 model 정보 넘길 때 RedirectAttributes ra ra.addFlashAttribute("result","로그인 성공하였슴");
+	@RequestMapping("result")
+	public String result(@RequestParam String id, Model model,
+						RedirectAttributes ra) {
+		if(id.equals("abc")) {
+			//model.addAttribute("result","로그인 성공하였슴");
+			ra.addFlashAttribute("result","로그인 성공하였슴");
+			MemberDTO dto = new MemberDTO();
+			dto.setId("아이디이다");
+			dto.setName("이름넣었다");
+			
+			ra.addFlashAttribute("dto",dto);
+			
+			return "redirect:reOK";
+		}else {
+			return "redirect:reNO";
+		}
+	}
+
+// 이미지 넣는 경로 지정하기
+<img src="${contextPath }/resources/beaf.jpg">
+<img src="${contextPath }/resources/test/img.jpg">
+<img src="<c:url value="/resources/test/img.jpg" />">
+
+// css stylesheet 넣는 방법
+<link type="text/css" rel="stylesheet" href="${contextPath }/resources/css/test.css"/>
+
+// servlet-context.xml mapping에서 시작하는 모든 값들을 location에서 보겠다는 뜻
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/css/**" location="/resources/" />
+
+// 연산은 서비스쪽에서 담당한다.
+
+// memberMapper 에 insert 문 삽입
+	<insert id="insert" >
+		insert into test_mybatis values(#{id}, #{name})
+	</insert>
+
+// db 연동 test
+	// Member insert Mapper 연동 테스트
+	@Test
+	public void testMapperIns() {
+		MemberDTO dto = new MemberDTO();
+		dto.setId(111); dto.setName("홍길동");
+		mapper.insert(dto);
+	}
+	// service 연동 테스트
+	@Test
+	public void testMsIns() {
+		MemberDTO dto = new MemberDTO();
+		dto.setId(222); dto.setName("김길이");
+		ms.insert(dto);
+	}
+
+	// MemberView Mapper 연동 테스트
+		// Mapper 에 resultMap 설정
+			<resultMap id="member" type="com.care.root.member.dto.MemberDTO">
+				<result property="DTO 변수명" column="컬럼명"/>
+			</resultMap>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

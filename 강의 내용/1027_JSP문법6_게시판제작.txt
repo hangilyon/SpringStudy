@@ -1,0 +1,101 @@
+게시판 만들기
+
+
+jsp에서는 댓글 spring 에서는 답글 넣어줄 예정
+
+create table test_board(
+id number(4) primary key,
+name varchar2(20),
+title varchar2(100),
+content varchar2(300),
+savedate date default sysdate, //디폴트값으로 시간을 넣어줌
+hit number(4) default 0,	// 디폴트값으로 0을 넣어줌
+idgroup number(4),			// 원글이 1번이면 답글도 1번
+step number(4),				// 
+indent number(4)			// 들여쓰기
+);
+create sequence test_board_seq;   // 넘버링을 부여할 수 있다
+// 0이라는 값을 가지고 있다가 nextval 을 만나면 1을 증가시켜줌
+// currval => 현재 test_board_swq 값을 가지고 와라
+
+savedate 는 private Timestamp savedate; 
+TImestamp 로 만든다
+
+<% request.setCharacterEncoding("utf-8"); %>
+== <fmt:requestEncoding value="utf-8"/>
+
+<%--
+	request.setCharacterEncoding("utf-8");
+	BoardDAO dao = new BoardDAO();
+	dao.writeSave(request.getParameter("name"),
+			request.getParameter("title"),
+			request.getParameter("content")
+			);
+	response.sendRedirect("list.jsp");
+	// 자바 코드로 작성
+--%>
+
+<jsp:useBean id="dao" class="com.care.root.board.dao.BoardDAO"/>
+${dao.writeSave(param.name, param.title, param.content) }
+<c:redirect url="list.jsp"/>
+<%-- JSTL 코드로 작성 --%>
+
+<input type="text" name="id" value="${dto.id }" readonly="readonly"
+// 읽기 전용 ! 쓰기는 안 됨!
+
+private void upHit(int id) {
+	String sql = "update test_board set hit = hit + 1 where id ="+id;
+	try {
+		ps = con.prepareStatement(sql);
+		ps.executeUpdate();
+	} catch (Exception e) {
+		e.printStackTrace();
+		// TODO: handle exception
+	}
+}
+// 조회수 제목 클릭시 1씩 증가
+
+public void modify(String id, String name, String title, String content) {
+	String sql = "update test_board set "
+			+ "name = ?, title = ?, content = ? where id = ?";
+	try {
+		ps = con.prepareStatement(sql);
+		ps.setString(1, name);
+		ps.setString(2, title);
+		ps.setString(3, content);
+		ps.setString(4, id);
+		ps.executeUpdate();
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+}
+// 글 수정!
+
+<jsp:useBean id="dao" class="com.care.root.board.dao.BoardDAO"/>
+${dao(delete(param.id) }
+
+<% 
+	BoardDAO dao = new BoardDAO();
+	dao.delete(request.getParameter("id"));
+	response.sendRedirect("list.jsp");
+%>
+
+// 글 삭제!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

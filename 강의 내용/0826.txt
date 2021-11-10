@@ -1,0 +1,139 @@
+1. 자바 버전 맞추기
+2. General - Workspace - Text file encoding UTF-8 맞추기
+
+기본 프로젝트 만들고 깃허브에 레파지토리 생성 - eclipse project 이름 다르면
+git clone 으로 내려받을 때 문제 발생 - eclipse 에 올라오지 않음
+
+조장님만 레파지토리 project
+Settings -> Manage acess -> invite a collaborator
+팀원분들 아이디 입력
+조장 project 파일 생성 올리고
+조원분들 workspace 에서 git bash - git clone <주소>
+cd project/
+File - open projects - 폴더선택 
+
+합칠 때
+팀원 조장 다 
+branch Master 로 이동
+git merge <자기 branch>
+git push -u origin master
+첫번째로 푸쉬한 사람은 충돌 발생 하지 않음
+두번째 사람부터 git pull 받아야 함 (MERGING) 발생
+class 들어가서 자바 문법이 아닌 내용 , 중복된 내용 지워야 함
+-> 테스트 꼭 시행 한 후 git commit 한 후 git push
+순서 없이 올리면 안됨!
+대화를 통해 젤 코드를 잘 하는 분이 마지막 순서로
+어려워 하는 사람 젤 첫번째로 올림
+
+1. 자기 package 생성 후 class -> 코드 작성 -> Main 에 객체 생성 후 테스트 
+2. git branch master 
+3. git merge <자기 branch>
+3. 1) 첫번째 사람
+	git push -u origin master
+	2) 두번째 이후 사람
+	git pull -> (MERGING) 발생!!
+	자기 eclipse 들어가서 새로고침 !
+	main class 들어가서 자바 문법이 아닌 내용과 중복된 내용 지움 - > 테스트 
+	테스트 완료 되었으면 git commit -am "<코멘트>" 한 후 git push -u origin master
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,117 @@
+HTML
+
+w3schools 
+
+HTML = 웹 페이지를 만들어주는 언어
+CSS = HTML로 만든 골격을 이쁘게 포장해주는 것
+열린태그(엘레멘트)로 시작해서 닫힌태그로 끝남
+브라우저 -> 번역기
+
+<br> 엔터값
+<!-- --> 주석
+<p></P> 단락을 구분할 때 사용
+<hr> 
+<h1></h1>
+<h2></h2>
+<h3></h3>
+<h4></h4>
+<h5></h5>
+<h6></h6> 글자 크기 선택 가능 태그
+
+<font size="1">글자 1</font>
+<font size="2">글자 2</font>
+<font size="3">글자 3</font>
+<font size="4">글자 4</font>
+<font size="5">글자 5</font>
+<font size="6" face="궁서체" color="blue">글자 6</font>
+<font size="7">글자 7</font>
+글자 크기, 폰트, 색상
+
+인라인과 블럭으로 동작한다
+font 인라인 방식
+<h1> 블럭 방식
+
+<b>굵은글씨</b>
+<i>이태릭체</i>
+<u>밑줄</u>
+<sup>위 첨자</sup>
+<sub>아래 첨자</sub>
+인라인 방식
+
+<tr> 은 하나의 행이라 생각함
+<table border="1" align="center" width="300" height="200" bgcolor="khaki">
+// 선 굵기 1 , 가운데 정렬 , 넓이 , 높이 , 배경 색상
+	<tr>
+		<td colspan="2">1</td><td>3</td>  
+		// 오른쪽으로 병합
+		//얇은 글씨에 왼쪽 정렬
+	</tr>
+	<tr>
+		<td rowspan="2">4이다</td> <td>5이다</td> <td>6이다</td>   
+		// 아래로 병합
+	</tr>
+	<tr>
+		 <th>1</th> <th>2</th> <th>3</th>
+		 //굵은 글씨에 가운데 정렬
+	</tr>
+</table>
+
+<pre></pre> 
+입력한 값 그대로 출력함
+
+&lt;안녕&gt; 공백 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;준다. copy &copy;
+http://kor.pe.kr/util/4/charmap2.htm
+특수문자 따로 적어야 함
+<ul>
+	<li>리스트1</li> <li>리스트2</li>
+</ul>	//문자로 리스트 표현
+<ol>
+	<li>리스트1</li> <li>리스트2</li>
+</ol>	//숫자로 리스트
+
+<dl>
+	<dt><b>HTML</b></dt>
+	<dd>
+		웹 문서를 만들기 위한 언어이다.<br>
+		Hyper Text Markup Language
+	</dd>	//들여쓰기
+</dl>
+<img src="img/test.jpg" width="100px" height="100px">
+//이미지 
+
+<a href="https://www.naver.com/">네이버 홈피</a>
+// 링크
+<a href="https://www.naver.com/" target="_blank">네이버 홈피</a>
+// 새 창으로 링크 이동
+<a href="https://www.naver.com/" title="NAVER 이동">네이버 홈피</a>
+// 마우스 가져다 대면 정보 나옴
+<a href="https://www.naver.com/"  title="NAVER 이동" target="_blank">네이버 홈피</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,100 @@
+JQuery
+자바 스크립트랑 복합적으로 사용함
+$ 로 시작함.
+
+	$(document).ready(function(){
+		console.log('test')
+	})
+	
+	$().ready(function(){
+		console.log('test111')
+	})
+	
+	$(function(){
+		console.log('2222')
+	})
+
+// 셋 다 동일한 내용이다.
+$("#btn").hide()
+$("#btn").show()
+
+JQuery cdn (Content Delivery Network)
+->  minified
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	var n = 0;
+	$(document).ready(function(){
+		$("div.out").mouseenter(function(){
+			$("p").first().text("마우스 포인트 들어옴")
+			$("p").last().text(++n)
+		}) 
+		//마우스포인터가 안으로 들어옴
+		$("div.out").mouseleave(function(){
+			$("p").first().text("마우스 포인트 나감")
+			$("p").last().text("최종 횟수 : "+n)
+		}) 
+		//마우스 포인터가 밖으로 나감
+		$("div.out").mousedown(function(){
+			$("p").first().hide
+			$("p").last().text("메시지 사라짐")
+		}) 
+		// 마우스를 클릭했을 시 
+		$("div.out").mouseup(function(){
+			$("p").first().show
+			$("p").last().text("최종 횟수 : "+n)
+		}) 
+		// 마우스 클릭을 뗏을 시 
+	})
+
+	function test(){
+		$("h1,p").toggleClass('border')
+	}
+// 버튼을 눌렀을 때 'border'라는 Class가 만들어졌다 없어진다
+	$(function(){
+		$(".b1").click(function(){
+			$("img").animate({
+				width:'100px',left:'0',top:'50px'
+			})
+		})
+		$(".b2").click(function(){
+			$("img").css({
+				width:'200px'
+			})
+		})
+		$(".b3").click(function(){
+			$("img").animate({
+				width:'300px',left:'100px',top:'150px'
+			})
+		})
+	})
+// (".img").animate 는 서서히 커지는 거고 .css는 즉각적으로 커진다
+
+
+
+
+
+
+z
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

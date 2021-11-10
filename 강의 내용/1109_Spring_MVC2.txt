@@ -1,0 +1,14 @@
+ /s_project/src/main/webapp/WEB-INF/
+ views/member/views/default/header.jsp
+/s_project/src/main/webapp/views/
+ default/header.jsp
+ 
+ create table membership(
+id varchar2(20) primary key,
+pw varchar2(100),
+addr varchar2(300)
+);
+insert into membership values('aaa','aaa','산골짜기');
+insert into membership values('bbb','bbb','별동별');
+commit;
+

@@ -1,0 +1,45 @@
+10월 4일부터 web 나감
+8~9일 정도 조별 프로젝트
+10월 1일 발표
+
+${javafxCompControls},javafx.fxml
+
+LisetView
+fxListView.setItems(phoneString);
+ImageView
+fxImageView.setItems(phoneString);
+
+ObservableList<String> phoneString; 형태로 넣어줘야함
+
+setListView(){} //리스트를 뷰어로 보여줌
+phoneString = FXCollections.observableArrayList();
+phoneString.add("넣을 값"); //리스트 값 추가
+fxLisetView.setItem(phoneString); 
+
+setListViewEvent(){} // 리스트를 선택하면 값을 보여줌
+fxListView.getSelectionModel().selectedIndexProperty().addListener((obs,oldValue,newValue)->{
+phoneString.get((int)newValue));
+
+미디어 공유할때는 아규먼트에 ${javafxCompControls},javafx.fxml.,javafx.web
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

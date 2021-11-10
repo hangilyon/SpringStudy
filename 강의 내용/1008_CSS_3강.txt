@@ -1,0 +1,55 @@
+position 
+	static = 순차적으로 나열하는 방식. 위치 조정이 불가능하다
+	.span1{background-color: yellow; position: static; top:5px;}
+	.span2{background-color: red; left:15px;}
+	.span3{background-color: aqua; position: static; top:-15px;}
+
+	relative = 위치 조정 가능
+	.span1{background-color: yellow; position: relative; top:5px;}
+	.span2{background-color: red; position: relative; left:15px;}
+	.span3{background-color: aqua; position: relative; top:-15px;}
+	
+	absolute = 절대위치. body를 기준으로 자리를 배치한다.
+	.span1{background-color: yellow; position: absolute; top:5px;}
+	.span2{background-color: red; position: absolute; left:15px;}
+	.span3{background-color: aqua; position: absolute; top:-15px;}
+
+fixed absolute 차이
+	fixed는 고정위치설정 스크롤 내려도 보이는 화면의 좌표에 고정(ex)팝업 등)
+	absolute 절대위치설정 스크롤 내리면 안보임()
+
+겹치는 경우 z-index:(기본값은 0) 숫자가 높을수록 제일 위에 위치함
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

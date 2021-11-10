@@ -1,0 +1,87 @@
+답글 달기
+
+// 넘어오는 값 한번에 처리하는 기능
+<jsp:useBean id="dto" class="com.care.root.board.dto.BoardDTO"/>
+<jsp:setProperty property="*" name="dto"/>
+
+// 답글 순서 맞추기
+list DAO 에 
+String sql = "select * from test_board order by idgroup desc";
+
+public void reply(BoardDTO dto) {
+	replyShape(dto);
+	String sql = "insert into test_board(id, name, title, content, idgroup, step, indent) "
+			+ "values(test_board_seq.nextval, ?,?,?,?,?,?)";
+	try {
+		ps = con.prepareStatement(sql);
+		ps.setInt(4, dto.getIdgroup());
+		ps.setInt(5, dto.getStep()+1);
+		ps.setInt(6, dto.getIndent()+1);
+		
+		ps.setString(1, dto.getName());
+		ps.setString(2, dto.getTitle());
+		ps.setString(3, dto.getContent());
+		
+		ps.executeUpdate();
+	} catch (Exception e) {
+		e.printStackTrace();
+		// TODO: handle exception
+	}
+}
+public void replyShape(BoardDTO dto) {
+	String sql = "update test_board set step=step+1 where idgroup=? and step>?";
+	try {
+		ps = con.prepareStatement(sql);
+		ps.setInt(1, dto.getIdgroup());
+		ps.setInt(2, dto.getStep());
+		
+		ps.executeUpdate();
+	} catch (Exception e) {
+		e.printStackTrace();
+		// TODO: handle exception
+	}
+}
+// indent 가 1이면은 -> 한개 , indent가 2이면은 -> 두개 증가
+<c:forEach begin="1" step="1" end="${dto.indent }">-></c:forEach>
+
+// 페이징 만들기
+<c:choose>
+	<c:when test=${param.start == null }>
+		<c:set var="start" value="1"/>
+	</c:when>
+	<otherwise>
+		<c:set var="start" value="${param.start }"/>
+	</otherwise>
+</c:choose>
+
+서브쿼리문
+// 
+select B.* from(select rownum rn, A.* from
+(select * from test_board order by id desc)A)B where rn between 6 and 8;
+
+// 페이징 번호 만들기 
+
+<c:forEach var="cnt" begin="1" end="${pc.totEndPage }" step="1">
+	<c:choose>
+		<c:when test="${cnt == start }">
+			<a href="list.jsp?start=${cnt }"><b>[${cnt }]</b></a>
+		</c:when>
+		<c:otherwise>
+			<a href="list.jsp?start=${cnt }">[${cnt }]</a>	
+		</c:otherwise>
+	</c:choose>
+	
+</c:forEach>
+
+
+
+
+
+
+
+
+
+
+
+
+

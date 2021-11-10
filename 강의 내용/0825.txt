@@ -1,0 +1,36 @@
+reset
+git reset --hard <돌아가고자 하는 시점>
+log 에 확인된 특정 시점으로 이동하면은 그 후에 시점은 사라짐!
+편하지만 잘 사용하지 않음
+정말 어쩔 수가 없을 때 사용
+why ? 기존에 있던 log 와 파일이 아예 사라짐
+다시 되돌아 갈 수가 없음
+
+revert 
+git revert <돌아가고자 하는 시점 위의 시점> 
+
+github 와 로그가 맞춰줘야 함
+로그가 많으면 상관이 없지만 로그가 적으면 문제가 됨
+git pull 깃허브의 모든 내용을 내려받는것
+강제로 올리고 싶으면 git push -uf origin master
+깃허브에 있는 내용을 내쪽으로 merge 하겠다 == pull
+깃허브가 중심이 되야 함
+
+clone
+있는 것 그대로 내려받는 것
+조장님이 기본 프로젝트로 올리면
+다른 사람들은 클론으로 내려받는 것
+or 집에서 하던 것을 깃허브에 올리고 학원에서 클론으로 내려받으면 됨
+학원에서 한 작업은 집에서 pull로 받으면 됨
+git clone <깃허브 주소>
+해당하는 레파지토리 자체를 내려받는 것
+파일 , 로그 , 리모트 , 브런치 등등 자체를 다 내려받는 것
+
+github branch
+git branch -r => 원격 저장소에 있는 branch
+git branch -a => branch 전부를 보여줌
+branch를 깃허브로 보낼 때 => git push origin <branch>
+깃허브 브런치 삭제 => git push origin --delete a-branch
+
+
+

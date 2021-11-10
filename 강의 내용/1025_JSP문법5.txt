@@ -1,0 +1,55 @@
+팀원들끼리 링크해서 만들어보세요
+하나 만들어서 글 등록하고 글 보는거하고 글 상세보기 수정, 삭제
+
+<c:if test="${sessionScope.id != null }">
+</c:if>
+<c:if test="${sessionScope.id == null }">
+	<script type="text/javascript">
+		location.href="${contextPath}/login/login_view.jsp"
+	</script>
+</c:if>
+
+게시판
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

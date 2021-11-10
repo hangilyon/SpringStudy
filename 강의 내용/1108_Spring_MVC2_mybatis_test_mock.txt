@@ -1,0 +1,130 @@
+DB연동
+JUnit test
+	= 자바 프로그래밍 언어용 유닛 테스트 프레임워크
+	= 서버 구동없이 프로그램이 실행하는 것처럼 보여줌
+
+// mybatis_junit_06
+
+	// DB생성
+		create table test_mybatis(
+		id number(4),
+		name varchar2(20)
+		);
+	
+	// pom.xml 수정 -> Maven update , web.xml encoding 수정, server 실행
+	
+	// Controller, dao, dto, service Class 생성
+	
+	// src/main/resources 에 mappers.member folder 생성 그안에 memberMapper.xml 파일 생성
+	
+	// src/test/java 에 TestMember.java class 파일 생성
+	
+	// src/test/resources 에 Spring Bean Configuration File -> testMember.xml 생성
+	
+// JUnit
+	@RunWith
+		JUnit 프레임워크 테스트 실행 방법 설정
+	@ContextConfiguration
+		각종 설정 파일의 위치 지정
+	@Test
+		테스트 메소드 선언
+	@Before
+		Test 전에 실행되는 메소드
+		초기화 목적으로 많이 씀
+	MockMvc 클래스
+		스프링 MBC 동작 재현할 수 있는 Class
+
+// https://mvnrepository.com/ Maven Repository
+	기능 추가 용도
+	spring-test
+	org.springframework 는 버전 신경 쓰지 않아도 된다고 함
+	version 을 ${org.springframework-version} 우리가 지정한 버전으로 자동으로 맞춰진다
+	RELEASE = 배포판
+	
+
+// 스프링에서는 버전 맞추는게 제일 까다로움, 검색을 하면서 많이 알아봐야 함 !
+
+	// JUit4 lib 추가
+
+// RunWith 어노테이션 
+	@RunWith(SpringRunner.class)
+
+// testMember.xml
+	Namespaces 에 context 체크
+	Source에 
+	<context:component-scan base-package="com.care.root"/>
+
+// @ContextConfiguration 특정 파일 실행 시켜주는 것
+	@ContextConfiguration(locations = {"classpath:testMember.xml"})
+
+// 동작
+	@RunWith(SpringRunner.class)
+	@ContextConfiguration(locations = {"classpath:testMember.xml"})
+	public class TestMember {
+		//@Autowired MemberController mc;
+		@Test
+		public void testMc() {
+			System.out.println("test");
+		}
+	}
+	assertNotNull(mc); // null 이 아니면 성공
+
+// HikariCP 가 Connection Pool 을 만들어 줌
+
+// dependency 생성
+	HikariCP 3.3.1
+	ojdbc6 11.2.0.4
+	spring-jdbc ${org.springframework-version}
+	mybatis 3.4.6
+	mybatis-spring 1.3.2
+
+// root-context.xml 에 넣어두기 Namespaces mybatis-spring check
+	  <!-- 히카리 커넥션풀 빈 등록 -->
+	  <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	  <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+	  <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" />
+	  <property name="username" value="han" />
+	  <property name="password" value="rlfdyd0603" />
+	  </bean>  
+	  <!-- 히카리 데이터소스 빈 등록 -->  
+	  <bean id="ds" class="com.zaxxer.hikari.HikariDataSource">
+	  <constructor-arg ref="hikariConfig"/>
+	  </bean>
+	  
+	  <!-- 데이터소스 마이바티스에 등록 및 xml 위치 설정 -->
+	  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="dataSource" ref="ds"/>
+	  <property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml"/>
+	  </bean>
+	  <!-- 마이바티스 xml파일과 dao빈 연결  -->
+	  <mybatis-spring:scan base-package="com.care.root.member.dao"/>
+
+// xml 파일에다가 명령어 실행
+
+// memberMapper Mapper 등록 
+	https://mybatis.org/mybatis-3/ko/index.html
+	configuration -> 설정파일 따로 쓰는 것
+	
+	// 아래 구문이 있어야 mapper 설정 가능
+	
+		<!DOCTYPE mapper
+		  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		<mapper namespace="com.care.root.member.dao.MemberDAO">
+			구문 입력
+		</mapper>
+
+
+1. pom.xml 라이브러리 정리
+2. mapper 파일 생성
+3. root.context.xml 빈 등록
+4. mapper 파일에다 기본 설정
+
+
+
+
+
+
+
+
+
