@@ -153,19 +153,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-<<<<<<< HEAD
-      <Context docBase="C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\cookie_session" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:cookie_session"/></Host>
-=======
-      <!--  <Context docBase="di_ex01" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:di_ex01"/> -->
-      <!--<Context docBase="mvc_ex02" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:mvc_ex02"/>-->
-      <!-- <Context docBase="quiz_01" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:quiz_01"/>-->
-      <!--<Context docBase="mvc_ex03" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:mvc_ex03"/>-->
-      <!--<Context docBase="mvc_quiz" path="/member" reloadable="true" source="org.eclipse.jst.jee.server:mvc_quiz"/>
-      <Context docBase="mvc_quiz_ans" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:mvc_quiz_ans"/>
-      <Context docBase="cookie_session" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:cookie_session"/>
-      <Context docBase="mybatis_junit_06" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:mybatis_junit_06"/>-->
-      <Context docBase="C:\java\Spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\java\Spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\s_project" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:s_project"/></Host>
->>>>>>> 842f2f50809374eaaedbe3965c6d2b45436d208f
+      <Context docBase="C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\s_project" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:s_project"/></Host>
     </Engine>
   </Service>
 </Server>
