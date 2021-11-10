@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <servers>
-<<<<<<< HEAD
   <server auto-publish-setting="2" auto-publish-time="1" configuration-id="/Servers/Tomcat v9.0 Server at localhost-config" deployDir="wtpwebapps" hostname="localhost" id="Tomcat v9.0 Server at localhost" name="Tomcat v9.0 Server at localhost" runtime-id="Apache Tomcat v9.0" server-type="org.eclipse.jst.server.tomcat.90" server-type-id="org.eclipse.jst.server.tomcat.90" start-timeout="45" stop-timeout="15" testEnvironment="true" timestamp="2">
-    <list key="modules" value0="s_project::org.eclipse.jst.jee.server:s_project::jst.web::3.1"/>
-=======
-  <server auto-publish-setting="2" auto-publish-time="1" configuration-id="/Servers/Tomcat v9.0 Server at localhost-config" deployDir="wtpwebapps" hostname="localhost" id="Tomcat v9.0 Server at localhost" name="Tomcat v9.0 Server at localhost" runtime-id="Apache Tomcat v9.0" server-type="org.eclipse.jst.server.tomcat.90" server-type-id="org.eclipse.jst.server.tomcat.90" start-timeout="45" stop-timeout="15" testEnvironment="true" timestamp="16">
-    <list key="modules" value0="di_ex01::org.eclipse.jst.jee.server:di_ex01::jst.web::2.5" value1="mvc_ex02::org.eclipse.jst.jee.server:mvc_ex02::jst.web::3.1" value2="quiz_01::org.eclipse.jst.jee.server:quiz_01::jst.web::3.1" value3="mvc_ex03::org.eclipse.jst.jee.server:mvc_ex03::jst.web::3.1" value4="mvc_quiz::org.eclipse.jst.jee.server:mvc_quiz::jst.web::3.1" value5="mvc_quiz_ans::org.eclipse.jst.jee.server:mvc_quiz_ans::jst.web::3.1" value6="cookie_session::org.eclipse.jst.jee.server:cookie_session::jst.web::3.1" value7="mybatis_junit_06::org.eclipse.jst.jee.server:mybatis_junit_06::jst.web::3.1" value8="s_project::org.eclipse.jst.jee.server:s_project::jst.web::3.1" value9="s_project_10::org.eclipse.jst.jee.server:s_project_10::jst.web::2.5"/>
->>>>>>> 50e14f35f7ca17bd1185d9fc087fcb0c527df8d6
+    <list key="modules" value0="s_project_10::org.eclipse.jst.jee.server:s_project_10::jst.web::3.1"/>
   </server>
 </servers>
