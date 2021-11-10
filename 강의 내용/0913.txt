@@ -1,0 +1,52 @@
+${javafxCompControls},javafx.fxml
+
+pieChart
+	pie.setData(FXCollections.observableArrayList(
+		new PieChart.Data("JAVA", 30),
+		new PieChart.Data("JSP", 20),
+		new PieChart.Data("SPRING", 40),
+		new PieChart.Data("TEST", 10)
+	));
+				
+barChart
+areaChart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

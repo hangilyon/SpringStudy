@@ -1,0 +1,112 @@
+외부파일을 이용해서 설정하는 방법
+
+resources / (file)print.properties
+설정을 할 때 외부파일로 저장
+DB라든가 서버 설정을 따로 파일로 관리 
+ex) print.name = test
+
+<property name="name">
+	<value>${print.name}</value>
+</property>
+
+Namespace 클릭
+context 체크
+Source -> xmlns:context="http://www.springframework.org/schema/context"
+<context:property-placeholder location="classpath:print.properties"/>
+=> ${print.name} 이면 변수 사용 가능
+
+interface , Bean 
+// 기능 변경 요구를 받았을 때 클래스를 바꾸면 일일히 수정해줘야 하지만 인터페이스와 빈을 이용해서 3줄로 
+	간략하게 변경 가능
+	//Car car = new Controller_v1_1();
+	
+	String path = "classpath:applicationCAR.xml";
+	GenericXmlApplicationContext ctx = new GenericXmlApplicationContext(path);
+	Car car = ctx.getBean("car",Car.class);
+
+Web 연결
+
+Multiple Contexts have a path of "/root".
+실행시 경로가 같으면 문제가 생김
+// prom.xml 에 경로가 같아서 문제 localhost:8080/root 기본 서버에 대한 경로로 잡음
+<artifactId>root</artifactId>
+//해결방법
+server.xml -> Source -> Context
+<Context docBase="di_ex01" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:di_ex01"/>
+<Context docBase="mvc_ex02" path="/root" reloadable="true" source="org.eclipse.jst.jee.server:mvc_ex02"/>
+경로 두개가 있어서 문제
+안쓸 Context를 주석으로 묶음
+
+// 버전 맞추기
+팀플 할때도 버전이 맞아야 함
+porm.xml Maven Dependencies 라이브러리 관리
+Alt + F5 무조껀 버전번경 한다.
+
+// 한글 처리 web.xml 에다가 붙여넣기
+<filter>
+  <filter-name>encodingFilter</filter-name>
+  <filter-class>
+  org.springframework.web.filter.CharacterEncodingFilter     
+  </filter-class>
+  <init-param>
+  <param-name>encoding</param-name>   
+  <param-value>UTF-8</param-value>
+  </init-param>
+  <init-param>
+  <param-name>forceEncoding</param-name>  
+  <param-value>true</param-value>
+  </init-param>
+</filter>    
+<filter-mapping>
+  <filter-name>encodingFilter</filter-name>
+  <url-pattern>/*</url-pattern>                 
+</filter-mapping> 
+
+// url 경로 localhost:port/root/index
+	@RequestMapping(value="index")
+	public String memberIndex() {
+		// .jsp 파일의 경로
+		return "member/index";
+	}
+
+
+// 모델로 변수 보내기
+	@RequestMapping("logout")
+	public String memberLogout(Model model) {
+		String db = "디비에서 데이터를 가져왔습니다";
+		model.addAttribute("key",db);
+		model.addAttribute("ok","로그아웃 되었습니다");
+		
+		return "/member/logout";
+	}
+	// 받을 때
+		${key }<br>
+		${requestScope.key }<br>
+		<%= request.getAttribute("key") %>
+		<hr>
+			==> 이 세개는 모두 같은 값임
+
+// ModelAndView
+	@RequestMapping("login")
+	public ModelAndView memberLogin() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("login","로그인 성공하였습니다");
+		mv.setViewName("member/login");
+		return mv;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

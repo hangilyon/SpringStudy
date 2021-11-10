@@ -1,0 +1,74 @@
+sts
+-> 
+스프링 프레임워크
+-> 하나의 틀을 만들어 놓고 프로그래머가 살을 붙임
+약한 결합 = 각각의 작은 기능으로 만들어 쓰자
+Spring DI(Dependency Injection) 의존성 주입
+	- 프로그램에 필요한 각종 클래스들을 Bean Container 에 두고 필요할 때마다
+	불러 와서 사용함
+String IoC(Inversion of Control) 제어의 역전 => 제어하는 대상이 바뀌었다.
+	- 프로그램을 제어하는 패턴 중 하나
+	- DI 는 IoC패턴의 구현체 중 하나
+Spring 은 DI Framework 혹은 IoC Framework라고 한다.
+
+sts 4버전에서는 마켓 플레이스에서 eclipse wap developer tools 3.23 install
+그다음 String Tools 3 Add-On for Spring Tools 4 3.9.18.RELEASE 설치
+
+스프링 레거시 - > 스프링 레거시 프로젝트
+
+https://github.com/spring-projects/toolsuite-distribution/wiki/Spring-Tool-Suite-3#full-distribution-on-eclipse-420-1
+Spring-tool-suite-3.9.17 -> eclipse 4.20
+
+
+JSP는 MVC 1 모델
+	Controller Service 없었음
+	클라이언트에서 요청을 하면 JSP 페이지로 바로 감 DAO DB 
+
+MVC 2
+	Model
+		: 데이터 처리하는 영역
+	View
+		: 화면을 구현하는 영역
+	Controller
+		: 요청 경로를 처리하는 영역
+
+
+DI (Dependency Injection) 의존성 주입
+com.회사이름.프로젝트명
+
+src/main/java 
+	package com.care.root
+		class MainClass, STBean, Student
+src/main/resources
+	Spring Bean Configuration File
+		applicationST.xml
+			<bean id="객체명" class="위치"/>
+
+// 위와 아래는 같다.
+Student st01 = new Student();
+STBean stb = new STBean();
+stb.setSt(st01);
+
+<bean id="st01" class="com.care.root02.Student"/>
+<bean id="stb" class="com.care.root02.STBean">
+<property name="st" ref="st01"/>
+</bean>
+
+classpath: 
+	: src/main/resources 까지의 경로를 말함
+// 경로 생성, xml 파일 불러오기 객체 연결
+String path = "classpath:applicationST.xml";
+GenericXmlApplicationContext ctx = 
+	new GenericXmlApplicationContext(path);
+
+STBean stb = ctx.getBean("stb",STBean.class);
+
+// set 바꾸기
+stb.setName("홍길동111");
+stb.setAge(2011);
+==>
+<property name="name">
+	<value>김말이2222</value>
+</property>
+<property name="age" value="123123123"/>
+

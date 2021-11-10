@@ -1,0 +1,78 @@
+자바 쪽에서 쓰는 기능을 이용해서 클래스 연습
+
+시간을 얻어 오는 기능
+long time = System.currentTimeMillis();
+
+시간을 내가 원하는 방식으로 바꾸는 방법
+SimpleDateFormat simp =
+	new SimpleDateFormat("yyyy년 mm월 dd일 aa hh시 mm분 ss초");
+
+String s = simp.format(변수); //심플포멧을 스트링s에 저장
+
+Date date = new Date();
+
+Calendar cal = Calender.getInstance();
+
+cal.getWeekYear()
+
+simp.format(cal.getTimeInMillis())
+
+cal.get(Calender.YEAR)
+...
+
+Thread.sleep(500); // 0.5초 대기하세요
+
+패키지
+
+폴더처럼 생각
+관련성 있는 것들을 모아놓고 처리
+
+다른 패키지에 내용을 끌어쓰려면
+import test.Ex03;
+
+public 이 있어야지만 다른패키지에 있는 클래스를 사용 할 수 있다.
+
+import test.*; // test 패키지 안에 있는 모든 값을 가져와서 사용하겠다.
+
+냉장고 기능
+온도
+전원
+문제를 각각 내세요
+문제를 낼 때는 
+클래스 : 냉장고
+기능 : 온도조절 기능(냉동고, 내장고)
+	1)온도를 높일 수 있다
+	2)온도를 낮출 수 있다
+	3)자동으로 맞춰줄 수 있다
+             :전원
+	1)전원을 on
+	2)전우너을 off
+             :정수기
+주변에 잇는걸 분석
+어떻게 기능을 나눌 수 있는지
+조별들로 해서 월요일 전까지 제출
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

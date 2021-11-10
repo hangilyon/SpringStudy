@@ -1,0 +1,68 @@
+GUI 일주일 예정
+fx-workspace 생성
+Help -> Eclipse Marketplace
+-> search FX e(fx)clipse 3.7.0 install
+그래픽을 만들어줄 때 사용
+https://gluonhq.com/products/javafx/ 
+-> JavaFX Windows SDK(Software Development Kit)
+본인 워크스페이스 경로에 한글 처리 X 
+
+설정
+Window - Preferences - Java - Build Path - 
+User Libraries - add JavaFx
+
+경로설정
+Window - Preferences - Run/Debug - String Substitution
+- New JavaFXLib
+만약 경로에 공백이 있으면  " " 로 묶어줌
+다시한번 New -
+Name : javafxCompControls
+value : --module-path ${JavaFXLib} --add-modules=javafx.controls
+Description : Javafx.controls
+
+프로젝트 생성할 때마다 Classpath 에 JavaFx Add Library 해야함
+Javafx 것이 있으면 1순위 없으면 다른 것들이 2순위
+main 파일이 있으면 항상 등록해야함
+Run/Debug Settings - Arguments - VM arguments:
+- ${javafxCompControls} 입력 
+
+Stage  가 가장 기본이 된다 기본 골격
+scene  Stage 안에 있는것
+그 위에 여러것들
+scene 에 컨테이너를 하나 더 입힌다. (여러 개의 라벨을 넣기 위해)
+
+${javafxCompControls}
+
+FlowPane 
+GridPane 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

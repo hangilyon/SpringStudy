@@ -1,0 +1,93 @@
+// cookie & session
+	비연결성 통신을 연결하기 위해 이용
+	쿠키보다는 세션이 보안 측면에서 유리함
+	누가 봐도 상관없는 정보를 이용할 때는 cookie 이용
+
+// "cookie" mapping 접근 -> Cookie 생성 
+@GetMapping("cookie")
+public String myCookie(HttpServletResponse response) {
+	Cookie cook = new Cookie("myCookie","쿠키생성");
+	cook.setMaxAge(5);
+	
+	response.addCookie(cook);
+	
+	return "cook/cookie";
+}
+
+// cookie 가져오는 법
+// 다른 데서 만든 쿠키도 다 가지고 와서 비효율적
+	for(Cookie c : request.getCookies()) {
+	System.out.println(c.getName());
+	}
+
+// 효율적으로 가져오는 방법
+	// required = cookie 가 없다면 null 값을 보내겠다는 뜻
+	@CookieValue(value="myCookie", required = false) Cookie cookie
+
+// Session
+	@Controller
+	public class SessionController {
+	// Session 만들기
+		@RequestMapping("make_session")
+		public String makeSession(HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("id", "abc123");
+			session.setAttribute("name", "홍길동");
+			
+			return "session/makeSession";
+		}
+	// Session 결과 보기
+		@RequestMapping("result_session")
+		public String resultSession() {
+			return "session/resultSession";
+		}
+		@RequestMapping("del_session")
+	// Session 삭제하기
+		public String delSession(HttpSession session) {
+		
+			// 특정 세션 만료
+			session.removeAttribute("id");
+			
+			// 모든 세션 종료
+			session.invalidate();
+			
+			return "session/delSession";
+		}
+	}
+// Model 은 지역변수 Session 은 전역변수라고 생각!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

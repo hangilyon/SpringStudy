@@ -1,0 +1,60 @@
+조희원 강사님 CHOHEEWON@HANMAIL.NET 010-3126-6033
+정보처리기사
+15:40 ~ 
+20차까지 자바
+오후-한길용 
+https://www.acmicpc.net/   백준알고리즘
+
+
+Java SE 11 (LTS) JDK Download - 번역기
+eclipse.org - 편집기
+Eclipse IDE for Enterprise Java and Web Developers
+
+D: java - workspace 폴더생성
+
+java폴더에 eclipse 압축 풀고 추후 필요할 때 마다 하나씩 풀어서 사용할 것임!
+workspace로 위치 잡아놓기
+바꾸는법 File - Switch workspace - Other
+
+ctrl N - java project 
+Project name day01 Finish
+
+프로젝트 합칠 때 쓰는 거 Don`t Create - no
+
+JRE System Library - 기능
+명령어에 대한 것들을 정의하는 것. 어떠한 기능들을 가지고 있구나 생각하면 됨.
+
+outline x 클릭
+
+src 클릭 ctrl N - Class 선택 Name ex01 Finish
+
+ctrl + - 글자크기조정  	java는 들여쓰기 큰 상관 x
+
+프로그램의 시작점 main
+4 main 입력 + ctrl space 맨 위에 선택
+색이 다른 것은 예약어
+java에서 미리 지정이 되어 있는 이름
+
+파일명을 임의로 바꾸면 에러가 뜸, 이름을 잘못 지정했다면 파일을 클릭 F2 
+출력은 Sysout ctrl space  System.out.println("출력 내용!!!"); 
+실행 F11 ""로 묶여 있는 것은 문자열
+ctrl alt 밑화살표 = 복사해서 밑으로 
+
+한줄 주석 // 녹색으로 되어 있는 부분은 실행이 안 됨
+한줄만큼은 프로그램으로 실행하지 않겠습니다.
+
+문단 주석 /*  */ 범위를 지정해 주석으로 표현 할 수 있다.
+
+println 자동으로 엔터값이 추가가 된다.
+print   한줄 저장
+
+\n : 엔터값과 비슷하다
+\t : 탭(스페이스바8칸)크기만큼 오른쪽으로 커서 이동
+\" (기억을 해두는게 좋음) "출력 용도
+\\ (기억을 해두는게 좋음) \ 출력
+숫자와 문자 내용
+
+\    /\
+ )  ( ')
+(  /  )
+ \(__)|

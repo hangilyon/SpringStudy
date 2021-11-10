@@ -1,0 +1,141 @@
+DispatcherServlet 라는 Class에서 제일 먼저 요청을 받는다
+HandlerMapping에서 컨트롤러 위치를 알려줌
+사용자 요청 정보와 해당하는 컨트롤러 위치를 Handler Adapter 에게 보내주고
+Handler Adapter 에서 요청컨트롤러 메소드로 연결
+ViewResolver 에서 jsp 페이지를 찾아줌
+
+// DB관련된 설정 파일의 위치를 지정해주는 태그
+<context-param>
+
+// 이벤트 발생시 작업을 처리하기 위한 태그
+<listener>
+
+// DispatcherServlet 이라는 이름을 appServlet 이라고 쓰겠다
+<servlet-name>appServlet</servlet-name>
+<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+// /로 시작하는 모든 값들을 Servlet 으로 처리하겠습니다
+<servlet-mapping>
+	<servlet-name>appServlet</servlet-name>
+	<url-pattern>/</url-pattern>
+</servlet-mapping>
+
+<!-- 디스패처서블릿 (servlet0name)appservlet 에서 설정이 된 것이다.
+	(servlet-class) 해당 디스패처서블릿의 위치(클래스)이다.
+	그래서 디스패처서블릿 설정은 (param-value)/WEB-INF... 에 있는
+	servlet-context.xml 의 파일이 디스패처서블릿의 설정파일이 되는 것이다.
+	(load-on-startup) 1은 해당 디스패처서블릿이 첫번째로 실행된다는 의미이다.
+-->
+
+<!--  appServlet 은 위의 별명을 지정하게 되는 것이며
+	  url-pattern의 / 는 , 사용자로부터 요청이 들어오는 모든 값에 대해
+	  디스패처서블릿으로 연결시켜주는 역할을 한다.
+-->
+
+
+// servlet-context.xml 의 내용 : 디스패처서블릿의 설정 내용
+
+	<!-- @Controller 어노테이션을 빈(객체)으로 등록해준다. -->
+	<annotation-driven />
+
+	<!-- 정적 파일을 관리 (css, js, img 등) -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- ViewResolver : Bean 등록 설정
+		prefix : 접두어 , suffix : 접미어
+		Controller 에서 return 으로 돌아오는 문자열을 jsp 파일의 위치를 만들어 준다.
+		ex) Controller 에서 return "index" 라면, /WEB-INF/views/index.jsp 로 만들어줌
+	-->
+
+	<!-- base-package 에 등록되어 있는 경로의 특정 어노테이션( @ ) 들을 Bean으로 등록해준다 -->
+	<context:component-scan base-package="com.care.root" />
+
+// 어노테이션을 붙이면 객체를 만들어준다
+@Autowired == @Inject
+	- 타입을 기준으로 bean 주입
+	- 같은 타입 bean 2개 이상일 경우 이름으로 주입
+// autowired 로 Bean 을 잡을 수 없을 때
+	@Autowired
+	@Qualifier("ms22")
+
+// form 태그의 내용을 result 에서 출력하기 
+	<form action="${contextPath }/my/result" method="get">
+		<input type="text" name="name"><br>
+		<input type="text" name="age"><br>
+		<input type="submit" value="전송">
+	</form><br>
+
+	<h1>post 방식 전송</h1>
+	<form action="${contextPath }/my/result" method="post">
+		<input type="text" name="name"><br>
+		<input type="text" name="age"><br>
+		<input type="submit" value="전송">
+	</form>
+// MyController get 방식
+
+	@RequestMapping(value="my/index", method= RequestMethod.GET)
+	public String index() {
+		
+		return "get_post/index";
+	}
+	@GetMapping(value="my/result")
+	public String resultGet(HttpServletRequest request, Model model) {
+		String name = request.getParameter("name");
+		String age = request.getParameter("age");
+		
+		System.out.println("name : "+name);
+		System.out.println("age : "+age);
+		//service.insert(name, age) -> dao.inset(name,age) -> db에 저장
+		
+		model.addAttribute("method",request.getMethod());
+		model.addAttribute("name",name);
+		model.addAttribute("age",age);
+		
+		System.out.println("get방식 실행");
+		return "get_post/result";
+	}
+// MyController POST 방식
+	@RequestMapping(value="my/index", method= RequestMethod.POST)
+	public String index() {
+		
+		return "get_post/index";
+	}
+	@PostMapping(value="my/result")
+	public String resultPost(HttpServletRequest request, Model model,
+			@RequestParam("name") String name,
+			@RequestParam("age") String age) {
+
+		System.out.println("name : "+name);
+		System.out.println("age : "+age);
+		//service.insert(name, age) -> dao.inset(name,age) -> db에 저장
+		
+		model.addAttribute("method",request.getMethod());
+		model.addAttribute("name",name);
+		model.addAttribute("age",age);
+		
+		System.out.println("post방식 실행");
+		return "get_post/result";
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

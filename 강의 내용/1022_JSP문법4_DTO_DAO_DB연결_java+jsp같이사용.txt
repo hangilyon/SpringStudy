@@ -1,0 +1,93 @@
+JSP DB 연결
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:import url="header.jsp"/>
+<jsp:include page="../default/header.jsp" />
+	<h1 class="title">main입니다.</h1>
+<jsp:include page="../default/footer.jsp" />
+<c:import url="footer.jsp"/>
+
+jsp 태그는 jsp에서만 사용 spring 에서는 사용안함 
+
+빈 == 객체
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:requestEncoding value="UTF-8"/>
+
+<jsp:useBean id="dto" class="member.MemberDTO" />
+<jsp:useBean id="dao" class="member.MemberDAO" />
+
+<jsp:setProperty name="dto" property="id" param="id"/>
+<jsp:setProperty name="dto" property="*" />
+
+<jsp:getProperty name="dto" property="id"/>
+
+	pwd ${dto.pwd}<br>
+	name : ${dto.name }<br>
+	addr : ${dto.addr }<br>
+	tel : ${dto.tel }
+
+객체를 만들면 생성자가 자동 호출
+<jsp:useBean> 에서 객체가 만들어짐
+
+DB연결을 위해서는 lib 에 ojdbc6.jar 파일 넣어야 함 
+
+try {
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	System.out.println("드라이브 로드 성공!!");
+} catch (Exception e) {
+	// TODO Auto-generated catch block
+	System.out.println("누리호 로켓 실패!!!!");
+	e.printStackTrace();
+}
+
+
+package com.care.root.member.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class MemberDAO {
+
+	Connection con;
+	PreparedStatement ps;
+	ResultSet rs;
+	
+	public MemberDAO() {
+		String url ="jdbc:oracle:thin:@localhost:1521:xe";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection(url,"han","rlfdyd0603");
+			System.out.println("성공");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

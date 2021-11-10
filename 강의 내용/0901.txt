@@ -1,0 +1,56 @@
+데이터베이스 연결 오라클 사용 (11g)
+Run SQL Command Line 실행
+
+1. 연결
+	conn system/password //관리자
+	관리자
+		모든 권한을 가지고 있는 사용자
+	일반 사용자
+		제약사항이 걸려 있는 사용자
+2. 계정생성
+	create user <id> identified by <password>;
+	han rlfdyd0603
+	일반 사용자는 접속권한이 없어서 연결이 되지 않음
+	권한을 부여해야 함!
+3. 권한부여
+	grant dba to <id>;
+	접속 시도하면 연결됨
+4. 저장하기 위한 틀(테이블) 만들어야 함
+	포트
+	특정 프로그램을 실행했을 때 구분값
+	
+eclipse 에서 oracle 접속
+	java 라는 언어에서 oracle 에 연결할 수 있는 기능 필요
+	-> ojdbc6 C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib
+	
+create table newst( // 저장소 생성
+id varchar2(20),	// 문자 저장 20byte 까지 저장 가능
+name varchar2(20),
+age number,
+primary key(id)		//유일키 ( 중복을 허용하지 않습니다.)
+);
+
+insert into newst values('111','Hong',23); //데이터 추가
+insert into newst values('222','Kim',20);
+insert into newst values('333','Go',30);
+
+commit;
+
+desc newst; // 형식을 보여줌 (not null = 무조건 정보가 들어가야함)
+select * from newst; // 저장된 데이터를 보여줌
+
+Class.forName("oracle.jdbc.driver.OracleDriver");
+	1. 오타
+	2. 기능을 구현 못해서 (ojdbc 를 해당 프로젝트에 올려두어야 함)
+	해결법 : 
+	java project - 오른쪽클릭 > properties 
+	-> Java Build Path -> Libraries 
+	-> Add External JARs... -> ojdbc6 add
+	다시 실행하면 오류가 사라짐
+
+java.sql.Connection
+
+String url = "jdbc:oracle:thin:@localhost:1521:xe";
+String id = "han";
+String pwd = "rlfdyd0603";
+Connection con = DriverManager.getConnection(url.id.pwd);

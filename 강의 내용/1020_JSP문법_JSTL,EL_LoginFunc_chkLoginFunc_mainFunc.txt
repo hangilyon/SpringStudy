@@ -1,0 +1,93 @@
+EL , JSTL 문법
+잘 기억해둘 것 !
+
+https://tomcat.apache.org/taglibs/standard
+JSTL (JSP Standard Tag Library) 자바서버 페이지 표준 태그 라이브러리
+라이브러리를 다운 받아서 사용
+Standard 1.1	JSTL 1.1	Servlet 2.4, JavaServer Pages 2.0	download
+-> binaries/ ->   jakarta-taglibs-standard-1.1.2.zip  2004-10-25 20:57  933K  
+-> WEB-INF -> lib 폴더에 jstl , standard 복사
+
+헤더부분에 코어 추가
+<% @taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+
+EL의 정식 명칭은 표현 언어(Expression Language)라고 하며 줄여서 EL이라고 부른다.
+
+<c:set var="n" value="12345"/>
+	//변수 생성
+el 표기법 : ${n }
+
+<%=request.getParameter("number")%>
+	=> ${param.number}
+
+request response
+
+<%= request.getContextPath()%>
+	// 프로젝트 파일명 출력, 나중에 프로젝트 명을 바꿀 때 하드코딩으로 작성하면 일일히 변경해야 함
+el표기법으로 
+${pageContext.request.contextPath}
+
+foreach 연습
+<%
+	int[] arr = {111,222,333};
+	
+	for(int i=0;i<arr.length;i++){
+		out.print(arr[i]+", ");
+	}
+	
+	for(int n : arr){
+		out.print(n+", ");
+	}
+	
+	String[] str = {"안녕","하세","요"};
+	for(String s : str){
+		out.print(s+", ");
+	}
+%>
+
+request.getParameter("n"); 는 하나의 값만 가져옴
+
+String[] str = request.getParameterValues("n");
+// 배열에 여러 개의 값을 저장해줌
+
+JSTL % EL <br>
+<c:forEach var="s" items="${paramValues.n }">
+	${s }<br>
+</c:forEach>
+// NULL 값이 나와도 실행 가능
+
+response
+
+<% response.sendRedirect("main.jsp"); %>
+	// 바로 연결을 시켜줌
+	// 로그인 실패시 로그인 페이지로 돌아올 때
+	// 로그인 성공시 다음 페이지로 넘어갈 때
+------------------------------------------------------------------
+<c:if test="${dbId == inputId and dbPwd eq inputPwd}">
+	<b>인증 성공</b>
+	<script type="text/javascript">alert("${inputId}님 로그인 성공했음")</script>
+</c:if>
+<c:if test="${dbId != inputId or dbPwd ne inputPwd}">
+	<b>인증 실패</b>
+	<script type="text/javascript">alert("${inputId}, ${inputPwd} 로그인 실패")</script>
+</c:if>
+-------------------------------------------------------------------
+<c:choose>
+	<c:when test="${dbId == inputId and dbPwd eq inputPwd }">
+		<c:redirect url="main.jsp"/>
+	</c:when>
+	<c:otherwise>
+		<c:redirect url="loginForm.jsp"/>
+	</c:otherwise>
+</c:choose>
+--------------------------------------------------------------------
+1. eq (==)
+ 비교하고자 하는 값이 동일한지를 확인할때 사용한다.
+
+2. ne (!=)
+ 비교하는 값이 동일하지 않은지 확인할때 사용한다.
+
+3. empty (== null)
+ 비교하는 값이 null 인지 확인할때 사용한다.
+ * null이 아닌경우를 표현할때는 !empty 로 표현하면 된다.
+

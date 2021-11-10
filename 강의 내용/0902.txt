@@ -1,0 +1,75 @@
+데이터베이스 연동
+1.데이터베이스의 장소 2.id 3.pw
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String id = "han";
+	private String pwd = "rlfdyd0603";
+	Connection con = DriverManager.getConnection(url, id, pwd);
+	
+
+3. 데이터베이스에 연결된 객체를 이용해서 명령어를 수행할 수 있는 객체를 얻어온다
+	String sql = "select * from newst";
+	PreparedStatement ps = con.prepareStatement(sql);
+4. 명령어를 수행할 수 있는 객체를 이용해서 명령어 수행
+5. 수행 결과를 저장한다.
+	ResultSet re = ps.executeQuery(); //명령어를 수행해라			
+while(rs.next()) {
+	System.out.println("id : "+ rs.getString("id"));
+	System.out.println("name : "+ rs.getString("name"));
+	System.out.println("age : "+ rs.getInt("age"));
+	System.out.println("--------------------------------");
+}
+=> DTO 객체에 저장함
+while(rs.next()) {
+	StudentDTO dto = new StudentDTO();
+	dto.setId(rs.getString("id"));
+	dto.setName(rs.getString("name"));
+	dto.setAge(rs.getInt("age"));
+	
+	list.add(dto);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

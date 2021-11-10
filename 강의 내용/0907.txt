@@ -1,0 +1,37 @@
+${javafxCompControls}
+
+AnchorPane
+StackPane = 중첩해서 올릴 수 있다.
+Hbox = 가로로 나열 // VBox = 세로로 나열
+FlowPane 과 비슷 
+다른점 : 가지고 있는 기능이 다르다 (FlowPane 의 setHGap 등이 없음)
+HBox 는 setSpacing 으로 간격을 띄운다
+아니면 객체 생성할 때 () 안에 숫자 부여
+
+ListView<String> list = new ListView<String>();
+
+CheckBox chk1 = new CheckBox("chk1");
+
+RadioButton rb1 = new RadioButton("라디오버튼 1");
+	ToggleGroup tg = new ToggleGroup(); 
+	으로 묶어서 한번만 선택되게 가능하다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
