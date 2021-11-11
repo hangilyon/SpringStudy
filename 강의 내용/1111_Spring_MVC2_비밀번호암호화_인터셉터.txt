@@ -1,0 +1,171 @@
+비밀번호 암호화
+인터셉터(자동 로그인)
+
+maven repository
+
+https://mvnrepository.com/
+spring security web
+
+// 변수선언 , 생성자 만들어서 초기화
+	BCryptPasswordEncoder encoder;
+	public MemberServiceImpl() {
+		encoder = new BCryptPasswordEncoder();
+	}
+// register 에 변경
+	System.out.println("변경 전 : "+dto.getPw());
+	String securePw = encoder.encode(dto.getPw());
+	System.out.println("변경 후 : "+securePw);
+	dto.setPw(securePw);
+
+// userCheck 에서 암호화된 비밀번호를 비교해야함
+	//if(pw.equals(dto.getPw())) {
+	if(encoder.matches(pw, dto.getPw())) {
+	
+	encoder.matches(일반 비밀번호, 암호화된 비밀번호)
+
+// 오픈 API ( 오픈 소스 )
+다음 주소 api https://postcode.map.daum.net/guide
+
+// form 태그 수정
+<form action="register" method="post" id="fo">
+	<table border="1">
+		<tr><td>
+		<input type="text" name="id" placeholder="아이디"><br>
+		<input type="text" name="pw" placeholder="비밀번호"><br>
+		<input type="text" name="addr" id="addr1" readonly placeholder="우편번호">
+
+		<input type="button" onclick="daumPost()" value="우편번호 찾기">
+		<input type="text" id="addr2" readonly placeholder="주  소">
+		<input type="text" id="addr3" placeholder="상세주소">
+		<br>
+		<hr>
+		<input type="button" onclick="register()" value="회원가입">
+		</td></tr>
+	</table>
+</form>
+
+// jquery 등록
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+// resources/js/daumpost.js 에 java script 파일 생성
+function daumPost(){
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+        // R : 도로명 , J : 지번  
+   		console.log("data.userSelectedType : "+data.userSelectedType)
+    	console.log("data.roadAddress : "+data.roadAddress)
+    	console.log("data.jibunAddress : "+data.jibunAddress)
+    	console.log("data.zonecode : "+data.zonecode)
+    	var addr = ""
+    	if(data.userSelectedType === 'R'){
+    		addr = data.roadAddress
+    	}else{
+    		addr = data.jibunAddress
+    	}
+	    document.getElementById("addr1").value = data.zonecode
+	    $("#addr2").val(addr);
+	    $("#addr3").focus();
+        }
+    }).open();
+}
+
+// register 등록 
+	<script>
+
+	function register(){
+		addr1 =  $("#addr1").val()
+		addr2 =  $("#addr2").val()
+		addr3 =  $("#addr3").val()
+		addr = addr1+"/"+addr2+"/"+addr3
+		$("#addr1").val(addr)
+		fo.submit()
+	}
+	</script>
+	
+// script 등록 
+<script src="<%=request.getContextPath()%>/resources/js/daumpost.js"></script>
+
+// name 이랑 dto 랑 같은 이름, 같은 수를 등록해야 submit 가능
+
+// 인터셉터
+	어느 시점에 동작을 한다
+	인터셉터가 없을 때 외부에서 접근할 때 필터 , 디스패처서블렛 , 컨트롤러 순으로 실행
+	컨트롤러 전에 인터셉터에서 처리 가능
+	다른 단계를 거치지 않아도 된다는 장점이 있다.
+
+// 인터셉터 설정
+	com.care.root.common.interceptor.CommonInterceptor.java 파일 생성
+
+public class CommonInterceptor extends HandlerInterceptorAdapter{
+
+	@Override
+	// 컨트롤 전에 실행
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("컨트롤러 실행 전전전");
+		return true;
+	}
+
+	@Override
+	// 컨트롤이 끝난 다음에 실행
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("컨트롤러 실행 후후후");
+	}
+}
+
+// servlet-context.xml 이동 bean 등록
+<beans:bean id="ci" class="com.care.root.common.interceptor.CommonInterceptor"/>
+
+<interceptors>
+	<interceptor>
+		<mapping path="/index"/>
+		<beans:ref bean="ci"/>
+	</interceptor>
+</interceptors>
+
+// 실행하면은 pre -> controller -> post 순으로 실행된다.
+
+// interceptor 활용
+	
+	// 컨트롤 전에 실행
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("컨트롤러 실행 전전전");
+		HttpSession session = request.getSession();
+		if(session.getAttribute(LOGIN) == null) {
+			response.sendRedirect("/root/member/login");
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	// 컨트롤이 끝난 다음에 실행
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("컨트롤러 실행 후후후");
+	}
+}
+// servlet-context 에 mapping 설정
+	<interceptor>
+		<mapping path="/member/memberInfo"/>
+		<mapping path="/board/list"/>
+		<beans:ref bean="ci"/>
+	</interceptor>
+
+// 개별적 인터셉터 사용 가능
+
+// board 에 인터셉터 실행하면은 하위 nav 에도 똑같이 인터셉터 실행으로 접근을 막아야 함
+<mapping path="/board/*"/>
+
+// 다음 시간엔 자동 로그인 기능
+
+
+

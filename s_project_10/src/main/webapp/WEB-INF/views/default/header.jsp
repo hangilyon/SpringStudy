@@ -35,7 +35,12 @@ nav ul li a:hover {
 <div class="wrap">
 	<nav>
 		<ul>
-			<li><a href="${contextPath}/index">HOME</a></li>
+			<li>
+				<a href="${contextPath}/index">HOME</a>
+			</li>
+			<li>
+				<a href="${contextPath}/board/index">BOARD</a>
+			</li>
 			<li>
 				<c:choose>
 					<c:when test="${sessionScope.loginUser == null }">
@@ -47,14 +52,9 @@ nav ul li a:hover {
 				</c:choose>
 			</li>
 			<li>
-				<c:choose>
-					<c:when test="${sessionScope.loginUser == null }">
-						<a href="${contextPath }/member/login">MEMBER_SHIP</a>
-					</c:when>
-					<c:otherwise>
+
 						<a href="${contextPath }/member/memberInfo">MEMBER_SHIP</a>
-					</c:otherwise>
-				</c:choose>
+
 			</li>
 		</ul>
 	</nav>
