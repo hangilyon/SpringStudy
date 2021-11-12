@@ -1,5 +1,9 @@
 package com.care.root.service;
 
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -55,6 +59,24 @@ public class MemberServiceImpl implements MemberService{
 		}
 		System.out.println(result);
 		return result;
+	}
+	@Override
+	public void keepLogin(String sessionId, Date limitDate, String id) {
+		// TODO Auto-generated method stub
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("sessionId", sessionId);
+		map.put("limitDate",limitDate);
+		map.put("id", id);
+		mapper.keepLogin(map);
+	}
+	@Override
+	public MemberDTO getUserSessionId(String sessionId) {
+		// TODO Auto-generated method stub
+		MemberDTO dto = mapper.getUserSessionId(sessionId);
+		if(dto != null) {
+			return dto;
+		}
+		return null;
 	}
 
 }

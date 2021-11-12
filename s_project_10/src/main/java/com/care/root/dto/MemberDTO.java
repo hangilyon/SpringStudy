@@ -2,6 +2,24 @@ package com.care.root.dto;
 
 public class MemberDTO {
 	private String id, pw, addr;
+	private java.sql.Date limitTime;
+	private String sessionId;
+	
+	public java.sql.Date getLimitTime() {
+		return limitTime;
+	}
+
+	public void setLimitTime(java.sql.Date limitTime) {
+		this.limitTime = limitTime;
+	}
+
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
 
 	public String getId() {
 		return id;

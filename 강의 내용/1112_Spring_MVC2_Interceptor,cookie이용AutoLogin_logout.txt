@@ -1,0 +1,139 @@
+인터셉터, 쿠키 이용해서 자동 로그인 
+
+// checkbox => @RequestParam String autoLogin 으로 받았을 때
+	check => autoLoginon
+	체크하지 않았을 때 오류가 나지만 @RequestParam(required = fales) 로 설정하면 null
+	
+//autoLogin v , Login success , 
+success 에서 autoLogin 체크 돼있으면 쿠키생성 , db에 저장 , 사용자 전달받음
+원래 로그인은 세션이 있냐 없냐만을 따졌음, 사용자가 껏다 켰을 때 request 로 요청하게되면 사용자에 대한 쿠키 확인
+이러한 쿠키를 가지고 있다면 autoLogin 체크했던 사용자,
+있으면 쿠키값이 데이터베이스에 있는지 체크,
+있으면 로그인 세션 생성
+// successLogin Controller 에 설정
+	if(autoLogin != null) {
+		int limitTime = 60*60*25*90; // 90일
+		System.out.println("session.getId()"+session.getId());
+		Cookie loginCookie = new Cookie("loginCookie",session.getId());
+		loginCookie.setMaxAge(limitTime);
+		//loginCookie.setPath("/");
+		response.addCookie(loginCookie);
+
+// setPath 지정하지 않으면 기본 경로, 하위 경로까지만 쿠키가 유지됨, 상위 경로에서는 쿠키 유지 못함
+	loginCookie.setPath("/"); //최상위에서 사용하겠다
+
+// db 수정 
+alter table membership add 
+  session_id varchar2(100) default 'nan'not null;
+alter table membership add limit_time date;
+
+// mapper resultMap 수정
+	<result property="limitTime" column="limit_time"/>
+	<result property="sessionId" column="session_id"/>
+	// db 합성어는 앞에 _ 표현, java 는 대문자로 표현
+
+// db에 넣기 위한 시간 설정
+	Calendar cal = Calendar.getInstance();
+	cal.setTime(new java.util.Date());
+	cal.add(Calendar.MONTH, 3); // 월에서 3개월 나중으로 수정해주세요
+	// sql 시간으로 변환
+	java.sql.Date limitDate = new java.sql.Date(cal.getTimeInMillis());
+
+// service 넘김
+	public void keepLogin(String sessionId, java.sql.Date limitDate, String id);
+// serviceImpl 넘김
+	public void keepLogin(String sessionId, Date limitDate, String id) {
+		// TODO Auto-generated method stub
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("sessionId", sessionId);
+		map.put("limitDate",limitDate);
+		map.put("id", id);
+		mapper.keepLogin(map);
+	}
+// mapper 넘김
+	public void keepLogin(Map<String, Object> map);
+// mapper.xml sql문 작성
+	<update id="keepLogin">
+		update membership set session_id=#{sessionId},
+				limit_time=#{limitDate}
+				where id = #{id}
+	</update>
+
+// autoLogin interceptor  class 생성
+
+// servlet-context.xml 에 bean 생성, mapping .
+	<beans:bean id="mi" class="com.care.root.member.interceptor.AutoLoginInterceptor"/>
+	<interceptor>
+		<mapping path="/"/>
+		<beans:ref bean="mi"/>
+	</interceptor>
+
+// interceptor 자동로그인 설정
+@Autowired MemberService ms;
+	/*// for문으로 쿠키 찾아오는 방법
+	for(Cookie c : request.getCookies()) {
+		if(c.getName().equals("loginCookie")) {
+			
+		}
+	}
+	*/
+	// 없으면 null , 있으면 쿠키값이 들어옴!
+	Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+	if(loginCookie != null) {
+		MemberDTO dto = ms.getUserSessionId(loginCookie.getValue());
+		if(dto != null) {
+			//HttpSession session = request.getSession();
+			//session.setAttribute(LOGIN,dto.getId());
+			request.getSession().setAttribute( LOGIN , dto.getId());
+		}
+	}
+
+// MemberSeriviceImpl
+	public MemberDTO getUserSessionId(String sessionId) {
+		// TODO Auto-generated method stub
+		MemberDTO dto = mapper.getUserSessionId(sessionId);
+		if(dto != null) {
+			return dto;
+		}
+		return null;
+	}
+
+// mapper
+	<select id="getUserSessionId" resultMap="member">
+		select * from membership where session_id = #{sessionId}
+	</select>
+
+// logout 설정 사용자의 쿠키 제거
+	//매개변수 선언
+	HttpServletResponse response,
+	@CookieValue(value="loginCookie", required=false) Cookie loginCookie
+	
+	//쿠키 종료
+	if(loginCookie != null) {
+		loginCookie.setMaxAge(0);
+		// 시간 설정을 하지 않으면 새로운 쿠키가 생성됨
+		loginCookie.setPath("/");
+		response.addCookie(loginCookie);
+	}
+	//DB session_id, limit_time 초기화
+	ms.keepLogin("nan",new java.sql.Date(System.currentTimeMillis()), (String)session.getAttribute(LOGIN));
+
+// 회원가입 오류
+바뀌기전 = insert into membership values(#{id},#{pw},#{addr})
+바꾼 후 = insert into membership(id, pw, addr) values(#{id},#{pw},#{addr})
+
+
+파일 업, 다운로드 , 이메일 인증
+스케줄러, ajax, rest api,
+게시판, 트랜잭션, aop , 구글차트
+== > 프로젝트 시작
+스프링 부터
+
+
+
+
+
+
+
+
+

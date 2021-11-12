@@ -25,6 +25,7 @@
 	
 	<beans:bean id="ci" class="com.care.root.common.interceptor.CommonInterceptor"/>
 	<beans:bean id="bi" class="com.care.root.board.interceptor.BInterceptor"/>
+	<beans:bean id="autoLogin" class="com.care.root.member.interceptor.AutoLoginInterceptor"/>
 	<interceptors>
 		<interceptor>
 			<mapping path="/member/memberInfo"/>
@@ -35,6 +36,10 @@
 		<interceptor>
 			<mapping path="/index"/>
 			<beans:ref bean="bi"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/index"/>
+			<beans:ref bean="autoLogin"/>
 		</interceptor>
 	</interceptors>
 

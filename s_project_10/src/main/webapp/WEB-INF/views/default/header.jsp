@@ -52,9 +52,7 @@ nav ul li a:hover {
 				</c:choose>
 			</li>
 			<li>
-
-						<a href="${contextPath }/member/memberInfo">MEMBER_SHIP</a>
-
+				<a href="${contextPath }/member/memberInfo">MEMBER_SHIP</a>
 			</li>
 		</ul>
 	</nav>
