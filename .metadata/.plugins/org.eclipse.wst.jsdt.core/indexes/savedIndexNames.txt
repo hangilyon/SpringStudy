@@ -1,4 +1,4 @@
-INDEX VERSION 1.4+C:\java\Spring-workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+INDEX VERSION 1.4+C:\javaSpring\SpringStudy\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
 19864760.index
 3281095411.index
 379259196.index
@@ -6,7 +6,6 @@ INDEX VERSION 1.4+C:\java\Spring-workspace\.metadata\.plugins\org.eclipse.wst.js
 1432903566.index
 3075809114.index
 2662680808.index
-4287987097.index
 260273293.index
 122484439.index
 3029776997.index
