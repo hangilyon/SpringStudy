@@ -1,0 +1,358 @@
+이메일 전송
+구글 이메일
+형식을 볼 것
+네이버 spring 이메일 https://baessi.tistory.com/50
+
+// e-mail dependency
+	<!-- 이메일 -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>javax.mail-api</artifactId>
+		<version>1.5.4</version>
+	</dependency>
+	<dependency>
+		<groupId>com.sun.mail</groupId>
+		<artifactId>javax.mail</artifactId>
+		<version>1.5.3</version>
+	</dependency>	
+// MailConfig class 생성
+	package com.care.root.config;
+
+	import java.util.Properties;
+	import org.springframework.context.annotation.Bean;
+	import org.springframework.context.annotation.Configuration;
+	import org.springframework.mail.javamail.JavaMailSender;
+	import org.springframework.mail.javamail.JavaMailSenderImpl;
+
+	@Configuration
+	public class MailConfig {
+		@Bean
+		public static JavaMailSender mailSender() {
+			JavaMailSenderImpl jms = new JavaMailSenderImpl();
+			// 메일 서버 설정
+			jms.setHost("smtp.gmail.com");
+			// 구글 포트번호 ( 고정 )
+			jms.setPort(587);
+			// 내 계정 
+			jms.setUsername("f0r2style@gmail.com");
+			jms.setPassword("rlfdyd0603!");
+
+			// 기본 설정
+			Properties prop = new Properties();
+			// 프로토콜
+			prop.setProperty("mail.transport.protocol", "smtp");
+			// 인증할꺼냐
+			prop.setProperty("mail.smtp.auth", "true"); 
+			// 암호화 방식 설정할꺼냐
+			prop.setProperty("mail.smtp.starttls.enable", "true");
+			// 로그를 찍겠다
+			prop.setProperty("mail.debug", "true");
+			jms.setJavaMailProperties(prop);
+
+			return jms;
+		}
+	}
+
+// 컨트롤러 설정
+	@Controller
+	public class MailController {
+		@Autowired
+		MailService ms;
+		@GetMapping("sendmail")
+		public void sendMail(HttpServletResponse response) throws Exception {
+			
+			ms.sendMail("shkg13@naver.com","(제목)연습 메일","(내용)연습중");
+			
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print("메일을 전송 하였습니다.");
+		}
+	}
+// 서비스 설정
+	public class MailService {
+		@Autowired JavaMailSender mailSender;
+		public void sendMail(String to, String subject, String body) {
+			MimeMessage message = mailSender.createMimeMessage();
+			try {
+				MimeMessageHelper helper = new MimeMessageHelper(message,true,"utf-8");
+				helper.setTo(to);
+				helper.setSubject(subject);
+				helper.setText(body);
+				mailSender.send(message);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+// html 속성으로 메일 전송
+
+	helper.setText(body, true); // true 를 넣으면 html 형식은 html 로 보내줌
+
+	StringBuffer sb = new StringBuffer();
+	sb.append("");
+	sb.append("");
+	sb.append("");
+	
+	String str = sb.toString();
+	ms.sendMail(보낼 주소,제목,str(내용));
+
+// 이메일 인증
+   public void auth(HttpServletRequest request) {
+      HttpSession session = request.getSession();
+      String userid = "choheewon";
+      String userkey = rand();
+      session.setAttribute(userid, userkey);
+      String body="<h2>안녕하세요 아뱅입니다</h2><hr>"
+            +"<h3>"+userid+" 님</h3>"
+            +"<p>인증하기 버튼을 누르면 로그인 됩니다</p>"
+            +"<a href='http://localhost:8085"
+            +request.getContextPath()+"/auth_check?userid="
+            +userid+"&userkey="+userkey+"'>인증하기</a>";
+      sendMail("choheewon@hanmail.net","이메일 인증입니다",body);
+   }
+   private String rand() {
+      Random ran = new Random();
+      String str="";
+      int num;
+      while(str.length() != 20) {
+         num = ran.nextInt(75)+48;//0~74 + 48 (숫자,소문자, 대문자)
+         if((num>=48 && num<=57)||(num>=65 && num<=90)||(num>=97 && num<=122)) {
+            str+=(char)num;
+         }else {
+            continue;
+         }
+      }
+      return str;
+   }
+// 컨트롤
+	@GetMapping("auth_form")
+	public String authForm() {
+		return "auth";
+	}
+	@GetMapping("auth")
+	public String auth(HttpServletRequest request) {
+		ms.auth(request);
+		return "redirect:https://www.naver.com/";
+	}
+	@GetMapping("auth_check")
+	public String auth_check(
+			@RequestParam String userid, 
+			@RequestParam String userkey,
+			HttpSession session
+			) {
+		String sessionKey = (String)session.getAttribute(userid);
+		System.out.println(sessionKey);
+		if(sessionKey != null) {
+			if(sessionKey.equals(userkey)) {
+				session.setAttribute("userid", userid);
+			}
+		}
+		return "redirect:auth_form";
+	}
+// jsp
+	<c:set var="contextPath" value="${ pageContext.request.contextPath}"/>
+	<c:choose>
+		<c:when test="${userid == null }">
+			<a href="${contextPath }/auth">이메일 인증하기</a>
+		</c:when>
+		<c:otherwise>
+			${userid } 님 이메일 인증 되었습니다!!!
+		</c:otherwise>
+	</c:choose>
+
+// Ajax
+Scheduler = 특정 시간에 특정 패치를 할 수 있게 해주는 기능
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+
+// 10초에 한번씩 "실행" 출력
+@Configuration
+@EnableScheduling
+public class MyScheduler {
+	@Scheduled(cron="*/10 * * * * *")
+	public void testsc() {
+		System.out.println("실행");
+	}
+}
+
+// CRON 크론 표현식
+ 초    |   분   |   시   |   일   |   월   |  요일  |   연도
+
+0~59 | 0~59 | 0~23 | 1~31 | 1~12  |   0~6  | 생략가능
+
+요일 : 0 (일요일) ~ 6( 토요일)
+
+? : 설정 값 없을 때 - 일과 요일 에서만 사용가능
+
+* : 모든조건
+
+시작시간/단위 : 시작시간부터 해당 단위 때
+
+시작범위-끝범위 : 시작범위 부터 끝범위까지
+
+L : 마지막 - 일, 요일 에서만 사용가능
+
+W : 가장 가까운 평일 찾는다 - 일 에서만 사용가능
+
+ex) 10W
+
+-10일이 평일 일 때 : 10일에 실행
+
+-10일이 토요일 일 때 : 가장 가까운 평일인 금요일(9일)에 참
+
+-10일이 일요일 일 때 : 가장 가까운 평일인 월요일(11일)에 참
+
+# : 몇주 째인지 찾는다 - 요일 에서만 사용가능
+
+ex) 3#2 : 수요일#2째주 에 참
+
+//Ajax 
+	// 아이디 중복체크 , 좋아요 등 페이지가 새로 로드되지 않고 특정 부분만 서버와 연결하는 방법
+	
+	// jsp 
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js">
+	</script>
+	<script type="text/javascript">
+		function ajax(){
+			$.ajax({
+				url : "ajax_result", type : "get",
+				success : function(data){
+					$("#count").text(data)
+					console.log("성공")
+				},
+				error : function(){
+					alert('문제 발생!!!')
+				}
+			});
+		}
+	</script>
+	</head>
+	<body>
+		<h1>내용</h1>
+		<h1>내용</h1>
+		<h1>내용</h1>
+		<h1>내용</h1>
+		<button type="button" onclick="ajax()">클릭</button>
+		<label id="count">0</label>
+	</body>
+	</html>
+	// Controller
+		@GetMapping("non_ajax")
+		public String nonAjax() {
+			System.out.println("non ajax 실행");
+			return "non_ajax";
+		}
+		@GetMapping("ajax")
+		public String ajax() {
+			System.out.println("ajax 실행");
+			return "ajax";
+		}
+		static int cnt=0;
+		@GetMapping("ajax_result")
+		
+		// jsp 페이지가 아닌 데이터를 return 한다고 선언
+		@ResponseBody
+		public String ajaxResult() {
+			return ++cnt+"";
+		}	
+
+// JSON 타입으로 변경
+JSON => 키와 값으로 이루어져있는 쌍
+	객체로 만들어서 전송하는것보다 처리 속도가 빠름
+	// 디펜전시
+	<!-- JSON.stringify(문자열 json타입 변경)  -->
+	<dependency>
+	   <groupId>com.fasterxml.jackson.core</groupId>
+	   <artifactId>jackson-databind</artifactId>
+	   <version>2.9.5</version>
+	</dependency>
+
+	// jsp 파일
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script>
+		function ajaxTest(){
+			var n = document.getElementById("name").value;
+			var a = $("#age").val();
+			var form = { name : n, age : a};
+			console.log(form);
+			$.ajax({
+				url : "ajax_result01",
+				type : "post",
+				// data : 서버(Controller) 로 보내는 데이터
+				data : JSON.stringify(form), // 서버(Controller) 로부터 돌아오는(return) 값
+				dataType : 'json',
+				// contextType : 서버(Controller) 로 보내는 타입의 형태
+				contentType : "application/json; charset=utf-8",
+				success : function(result){
+					$("#label").text(result.name + ", "+result.age )
+				},
+				error : function(){
+					alert('문제 발생!!!!')
+				}
+			})
+		}
+	</script>
+	</head>
+	<body>
+		<input type="text" id="name" placeholder="name"><br>
+		<input type="text" id="age" placeholder="age"><br>
+		<input type="button" onclick="ajaxTest()" value="입력"><br>
+		결과 : <label id="label"></label>
+	</body>
+
+	// Controller
+		@PostMapping(value="ajax_result01", 
+				produces="application/json; charset=utf-8")
+		@ResponseBody
+		public InfoDTO ajaxResult01(@RequestBody InfoDTO dto) {
+			System.out.println("이름 : "+dto.getName());
+			System.out.println("나이 : "+dto.getAge());
+			
+			dto.setName("서버 연산 후 이름 저장");
+			dto.setAge(2222222);
+			
+			return dto;
+		}
+	
+	// map 으로 받기
+
+		@PostMapping(value="ajax_result01", 
+				produces="application/json; charset=utf-8")
+		@ResponseBody
+		//public InfoDTO ajaxResult01(@RequestBody InfoDTO dto) {
+		public Map ajaxResult01(@RequestBody Map<String, Object> map) {
+			//System.out.println("이름 : "+dto.getName());
+			//System.out.println("나이 : "+dto.getAge());
+			
+			System.out.println("이름 : "+map.get("name"));
+			System.out.println("나이 : "+map.get("age"));
+			System.out.println("주소 : "+map.get("addr"));
+			
+			//dto.setName("서버 연산 후 이름 저장");
+			//dto.setAge(2222222);
+			map.put("name", "map 이름");
+			map.put("age", "map age");
+			map.put("addr", "map addr");
+			
+			return map;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
