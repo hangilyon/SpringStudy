@@ -1,0 +1,295 @@
+rest api
+	// Post 생성
+	 Get 조회
+	 put 수정
+	 delete 삭제
+	 
+	 
+	 // 요청방식
+		jsp 파일에 button 클릭 시 ajax를 이용 , json 파일로 @RestController 에 있는 정보 받아서 
+		jsp 에 출력하기
+	 
+	 // TestController 생성 execute 요청하면 뒤에 문구 ajax로 내보내기
+		@RestController
+		public class TestController {
+			@GetMapping(value="rest", produces="application/json;charset=utf-8")
+			public String get() {
+				return "{\"execute\" : \"get 데이터 요청때 사용\"}";
+			}
+			@PostMapping(value="rest", produces="application/json;charset=utf-8")
+			public String post() {
+				return "{\"execute\" : \"post 데이터 추가때 사용\"}";
+			}
+			@PutMapping(value="rest", produces="application/json;charset=utf-8")
+			public String put() {
+				return "{\"execute\" : \"put 데이터 수정때 사용\"}";
+			}
+			@DeleteMapping(value="rest", produces="application/json;charset=utf-8")
+			public String delete() {
+				return "{\"execute\" : \"delete 데이터 삭제때 사용\"}";
+			}
+		}
+	
+	// rest01.jsp 파일 생성 button 클릭 시 function 발동하여 ajax로 data.execute를 label 에 출력하기
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript">
+		function ajaxGet(){
+			$.ajax({
+				url : "rest", type: "get", dataType : "json",
+				contentType : "application/json; charset=utf-8",
+				success : function(data){
+					console.log(data);
+					$("#label").text(data.execute);
+				}
+			})
+		}
+		function ajaxPost(){
+			$.ajax({
+				url : "rest", type: "post", dataType : "json",
+				contentType : "application/json; charset=utf-8",
+				success : function(data){
+					$("#label").text(data.execute);
+				}
+			})
+		}
+		function ajaxPut(){
+			$.ajax({
+				url : "rest", type: "put", dataType : "json",
+				contentType : "application/json; charset=utf-8",
+				success : function(data){
+					$("#label").text(data.execute);
+				}
+			})
+		}
+		function ajaxDelete(){
+			$.ajax({
+				url : "rest", type: "delete", dataType : "json",
+				contentType : "application/json; charset=utf-8",
+				success : function(data){
+					$("#label").text(data.execute);
+				}
+			})
+		}
+		</script>
+		</head>
+		<body>
+		<label id="label"></label> <hr>
+		<button onclick="ajaxGet()">get호출</button><br>
+		<button onclick="ajaxPost()">post호출</button><br>
+		<button onclick="ajaxPut()">put호출</button><br>
+		<button onclick="ajaxDelete()">delete호출</button>
+		</body>
+		</html>		
+	
+	
+	// json,ajax 를 이용하여 db사용자 정보를 jsp 에서 button 을 클릭하여 내보내기
+	//getuser 호출, TestController 작성 json으로 list 내보내기
+		public class TestController {
+		static int cnt = 0;
+		static Map<String, InfoDTO> dBMap = new HashMap<String, InfoDTO>();
+		@GetMapping(value="users" , produces = "application/json;charset=utf-8")
+		public ArrayList<InfoDTO> users() {
+			ArrayList<InfoDTO> list = new ArrayList<InfoDTO>();
+			for(int i=cnt ; i<cnt+10; i++) {
+				InfoDTO dto = new InfoDTO();
+				dto.setName("홍길동"+i);
+				dto.setAge(10+i);
+				
+				list.add(dto);
+				dBMap.put("홍길동"+i, dto);
+			}
+			return list;
+		}
+	
+	// getuser.jsp 파일 생성, button 클릭하면 ajax로 list 내보내기
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript">
+			function getUsers(){
+				$.ajax({
+					url : "users" , type : "get", dataType : "json" ,
+					success : function(list){
+						$("#users").text(list);
+						console.log(list);
+					}
+				})
+			}
+		</script>
+		</head>
+		<body>
+			<span id="users"></span>
+			<button type="button" onclick="getUsers()">사용자 목록 보기</button>
+		</body>
+
+	// list 값 출력하기
+		function getUsers(){
+			$.ajax({
+				url : "users" , type : "get", dataType : "json" ,
+				success : function(list){
+					var html = "";
+					for(var i=0; i<list.length; i++){
+						html += "<b>이름 : </b>" + list[i].name+"<br>"
+						html += "<b>나이 : </b>" + list[i].age+"<hr>"
+						$("#users").html(html);
+					}
+				}
+			})
+		}
+		// $("#users").append(html); ==> 더보기와 같이 사용 가능 밑으로 계속 출력됨
+	// jquery 로 foreach 문
+		$.each(list,function(index, item){
+			html += "<b>이름 : </b>" + item.name+"<br>"
+			html += "<b>나이 : </b>" + item.age+"<hr>"
+		})
+// 특정 사용자 출력하기
+	// JSP 작성
+		<input type="text" id="userId"><br>
+		<button type="button" onclick="userInfo()">특정 사용자 보기</button>	
+		function userInfo(){
+			var userId = $("#userId").val()
+			$.ajax({
+				url : "user/"+userId,//"user?id="+userId,
+				type : "get",
+				dataType : "json",
+				success : function(dto){
+					var html = "";
+					html += "<b>이름 : </b>"+dto.name + "<br>"
+					html += "<b>나이 : </b>"+dto.age + "<br>"
+					$("#users").html(html);
+				}
+			})
+		}
+	// TestController 작성
+		@GetMapping(value="user", produces="application/json;charset=utf-8")
+		public InfoDTO user(@RequestParam String id) {
+			return DBMap.get(id);
+		}
+		@GetMapping(value="user/{name}", produces="application/json;charset=utf-8")
+		public InfoDTO user1(@PathVariable("name") String name111) {
+			return DBMap.get(name111);
+		}	
+
+	// url 받는 방법에 따라 컨트롤러에서 다르게 설정해줘야함
+	url : "user/"+userId,
+	
+	@GetMapping(value="user/{name}", produces="application/json;charset=utf-8")
+	public InfoDTO user1(@PathVariable("name") String name111) {
+		return DBMap.get(name111);
+	}	
+	// {name} 과 @PathVariable("name") 통일 시켜주어야 함
+
+	url : "user?id="+userId,
+	
+	@GetMapping(value="user", produces="application/json;charset=utf-8")
+	public InfoDTO user(@RequestBody String id) {
+		return DBMap.get(id);
+	}
+
+// 회원정보 수정
+	// modify jsp 작성
+		<input type="text" id="userId1" placeholder="수정할 이름 입력"><br>
+		<input type="text" id="userAge" placeholder="수정할 나이 입력"><br>
+		<button type="button" onclick="modify()">사용자 수정</button>	
+		
+		function modify(){
+			let name = $("#userId1").val();
+			let age = $("#userAge").val();
+			console.log(name)
+			console.log(age)
+			let form = {name : name , age : age};
+			$.ajax({
+				url : "modify", type : "put", dataType : "json",
+				data : JSON.stringify(form),
+				contentType : "application/json; charset=utf-8",
+				success : function(dto){
+					var html = "";
+					html += "<b>이름 : </b>"+dto.name + "<br>"
+					html += "<b>나이 : </b>"+dto.age + "<br>"
+					$("#users").html(html);
+				}
+			})
+		}
+	// TestController.java
+
+		@PutMapping(value="modify", produces="application/json;charset=utf-8")
+		public InfoDTO modify(@RequestBody InfoDTO dto) {
+			System.out.println(dto.getName());
+			System.out.println(dto.getAge());
+			DBMap.replace(dto.getName(), dto);
+			return DBMap.get(dto.getName());
+		}
+
+// 회원정보 등록
+	// membership jsp 작성
+		function membership(){
+			/*
+			let uId = $("#uId").val();
+			let uName = $("#uName").val();
+			let uAge = $("#uAge").val();
+			let uAddr = $("#uAddr").val();
+			let uPhone = $("#uPhone").val();
+			let form = {uId : uId, uName : uName, uAge : uAge, uAddr : uAddr, uPhone : uPhone}
+			*/
+			let form = {};
+			let arr = $("#fo").serializeArray();
+			console.log(arr);
+			for(i=0; i<arr.length; i++){
+				form[arr[i].name ] = arr[i].value;
+			}
+			$.ajax({
+				url : "membership",
+				type : "post",
+				dataType : "json",
+				data : JSON.stringify(form),
+				contentType : "application/json; charset=utf-8",
+				success : function(data){
+					if(data.result == true){
+						alert('저장 되었습니다!!!');
+					}
+				}
+			})
+		}	
+		<h3>회원가입</h3>
+		<form id="fo" action="">
+			<input type="text" name="uId" id="uId" placeholder="id"><br>
+			<input type="text" name="uName" id="uName" placeholder="uName"><br>
+			<input type="text" name="uAge" id="uAge" placeholder="uAge"><br>
+			<input type="text" name="uAddr" id="uAddr" placeholder="uAddr"><br>
+			<input type="text" name="uPhone" id="uPhone" placeholder="uPhone"><br>
+			<input type="button" onclick="membership()" value="회원가입"><br>
+		</form>
+
+// 게시판 생성
+	// table 생성
+		create table mvc_board(
+		Write_no number(10) primary key,
+		Title varchar2(100),
+		Content varchar2(300),
+		Savedate date default sysdate,
+		Hit number(10) default 0,
+		Image_file_name varchar(100),
+		Id varchar(20) not null,
+		constraint fk_test foreign key(id) references membership(id) on delete cascade
+		);
+		create sequence mvc_board_seq; 
+		
+		// constraint 제약설정 fk_test 로 사용하겠다 , 현재 테이블에 있는 id와 참조되는 테이블은 membership에 있는 id이다.
+		// 무결성 제약조건 해결 
+		ex ) 부모테이블에 aaa 아이디 bbb 아이디 있다, 자식 테이블에서 ccc라고 저장을 하게 되면 저장을 시켜주지 않는다.
+		부모가 가지고 있는 아이디에 한에서 id 저장 가능
+		회원만 글 작성을 하게 하겠다!!
+		// on delete cascade
+		부모테이블에 아이디가 삭제되면 자식 테이블에 있는 데이터도 같이 삭제된다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

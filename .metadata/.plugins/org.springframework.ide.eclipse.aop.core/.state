@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
+<aop-project name="ajax_12"/>
 <aop-project name="mvc_quiz"/>
 <aop-project name="s_project_10"/>
-<aop-project name="mybatis_junit_06"/>
 <aop-project name="mvc_quiz_ans"/>
+<aop-project name="mvc_ex02"/>
+<aop-project name="file_email_11"/>
+<aop-project name="mybatis_junit_06"/>
 <aop-project name="di_ex01"/>
 <aop-project name="cookie_session"/>
-<aop-project name="mvc_ex02"/>
+<aop-project name="file_email"/>
 <aop-project name="mvc_ex03"/>
 <aop-project name="quiz_01"/>
 <aop-project name="s_project"/>

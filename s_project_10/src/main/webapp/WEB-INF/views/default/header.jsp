@@ -39,7 +39,7 @@ nav ul li a:hover {
 				<a href="${contextPath}/index">HOME</a>
 			</li>
 			<li>
-				<a href="${contextPath}/board/index">BOARD</a>
+				<a href="${contextPath}/board/contentView">BOARD</a>
 			</li>
 			<li>
 				<c:choose>
