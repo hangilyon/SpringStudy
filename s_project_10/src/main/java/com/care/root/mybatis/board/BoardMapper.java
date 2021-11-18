@@ -1,5 +1,15 @@
 package com.care.root.mybatis.board;
 
-public interface BoardMapper {
+import java.util.List;
 
+
+import com.care.root.board.dto.BoardDTO;
+
+public interface BoardMapper {
+	public List<BoardDTO> boardAllList();
+	public int writeSave(BoardDTO dto);
+	public BoardDTO contentView(int writeNo);
+	public void upHit(int writeNo);
+	public BoardDTO getData(int writeNo);
+	public int modify(BoardDTO dto);
 }

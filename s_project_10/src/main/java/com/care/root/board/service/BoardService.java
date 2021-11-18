@@ -1,5 +1,16 @@
 package com.care.root.board.service;
 
-public interface BoardService {
+import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+public interface BoardService {
+	public void boardAllList(Model model);
+	public String writeSave(
+			MultipartHttpServletRequest mul, 
+			HttpServletRequest request);
+	public void contentView(int writeNo, Model model);
+	public void getData(int writeNo, Model model);
+	public String modify(MultipartHttpServletRequest mul, HttpServletRequest request);
 }
