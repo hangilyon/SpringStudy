@@ -44,4 +44,6 @@ public class BoardFileServiceImpl implements BoardFileService{
 		File deleteFile = new File(IMAGE_REPO+"/"+originFileName);
 		deleteFile.delete();
 	}
+
+
 }

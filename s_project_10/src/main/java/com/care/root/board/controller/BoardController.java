@@ -29,8 +29,9 @@ public class BoardController implements MemberSessionName{
 	@Autowired BoardService bs;
 	@Autowired BoardFileService bfs;
 	@GetMapping("boardAllList")
-	public String boardAllList(Model model){
-		bs.boardAllList(model);
+	public String boardAllList(Model model,
+			@RequestParam(required = false, defaultValue = "1") int num){
+		bs.boardAllList(model,num);
 		return "board/boardAllList";
 	}
 	@GetMapping("writeForm")
@@ -83,5 +84,15 @@ public class BoardController implements MemberSessionName{
 		out = response.getWriter();
 		out.println(message);
 	}
-
+	@GetMapping("delete")
+	public void boardDelete(@RequestParam("writeNo") int write_no,
+	      @RequestParam("imageFileName") String imageFileName,
+	      HttpServletResponse response, 
+	      HttpServletRequest request) throws IOException {
+	   String message = bs.boardDelete(write_no,imageFileName,request);
+	   PrintWriter out=null;
+	   response.setContentType("text/html; charset=utf-8");
+	   out = response.getWriter();
+	   out.println(message);
+	}
 }

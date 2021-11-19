@@ -1,5 +1,7 @@
 package com.care.root.board.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.care.root.board.dto.BoardDTO;
+import com.care.root.board.dto.BoardRepDTO;
 import com.care.root.mybatis.board.BoardMapper;
 
 @Service
@@ -16,9 +19,18 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired BoardMapper mapper;
 	@Autowired BoardFileService bfs;
 	@Override
-	public void boardAllList(Model model) {
+	public void boardAllList(Model model, int num) {
 		// TODO Auto-generated method stub
-		model.addAttribute("boardList", mapper.boardAllList());
+		int pageLetter = 3; // 한페이지에 보여줄 글 개수
+		int allCount = selectBoardCount(); // 총 개수
+		int repeat = allCount/pageLetter; // 반복횟수 및 총 페이지 수 
+		if(allCount % pageLetter != 0) {
+			repeat += 1;
+		} // 나누고 3미만이 남았다면은 그 수를 담을 페이지 한 개 더 추가
+		int end = num * pageLetter; // 보여줄 글 끝값
+		int start = end +1 - pageLetter; // 보여줄 글 시작값
+		model.addAttribute("repeat",repeat);
+		model.addAttribute("boardList",mapper.boardAllList(start,end)); // 보여주는 글의 시작과 끝 값 삽입
 	}
 	// 글쓰기 db에 등록
 	@Override
@@ -97,5 +109,36 @@ public class BoardServiceImpl implements BoardService{
 		}
 		String message = bfs.getMessage(request, msg, url);
 		return message;
+	}
+	@Override
+	public String boardDelete(int writeNo, String imageFileName, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		int result = mapper.delete(writeNo);
+		String msg=null, url=null;
+		if(result == 1) { 
+			bfs.deleteImage(imageFileName); 
+			msg = "성공적으로 삭제 되었습니다";
+			url = "/board/boardAllList";
+		}else {
+			msg = "삭제 중 문제가 발생하였습니다";
+			url = "/board/contentView";
+		}
+		String message = bfs.getMessage(request,msg,url);
+		return message;
+	}
+	@Override
+	public void addReply(BoardRepDTO dto) {
+		// TODO Auto-generated method stub
+		mapper.addReply(dto);
+	}
+	@Override
+	public List<BoardRepDTO> getRepList(int write_group) {
+		// TODO Auto-generated method stub
+		return mapper.getRepList(write_group);
+	}
+	@Override
+	public int selectBoardCount() {
+		// TODO Auto-generated method stub
+		return mapper.selectBoardCount();
 	}
 }

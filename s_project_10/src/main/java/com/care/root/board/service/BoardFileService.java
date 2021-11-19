@@ -12,4 +12,5 @@ public interface BoardFileService {
 			String url);
 	public String saveFile(MultipartFile file);
 	public void deleteImage(String originFileName);
+	
 }

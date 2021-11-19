@@ -1,0 +1,318 @@
+delete
+
+	//delete method
+		// 삭제하기 button 경로 지정
+			<input type="button" 
+			onclick="location.href='${contextPath}/board/delete?
+			writeNo=${personalData.writeNo }&imageFileName=${personalData.imageFileName }'" 
+
+		// BoardController 
+			@GetMapping("delete")
+			public void boardDelete(@RequestParam("writeNo") int write_no,
+				  @RequestParam("imageFileName") String imageFileName,
+				  HttpServletResponse response, 
+				  HttpServletRequest request) throws IOException {
+			   String message = bs.boardDelete(write_no,imageFileName,request);
+			   PrintWriter out=null;
+			   response.setContentType("text/html; charset=utf-8");
+			   out = response.getWriter();
+			   out.println(message);
+			}
+		// sql문
+			delete from mvc_board where write_no = #{writeNo}
+
+	// 답글 작성 method
+		// createTable
+			create table reply(
+			id varchar(20),
+			title varchar(50),
+			content varchar(300),
+			write_group number(10),
+			write_date date default sysdate,
+			constraint fk_test1 foreign key(write_group) references mvc_board(write_no) on delete cascade,
+			constraint fk_test2 foreign key(id) references membership(id) on delete cascade
+			);
+		// 답글 다는거는 ajax로 
+		
+		// porm.xml 에 json repo 등록
+			<!-- JSON.stringify(문자열 json타입 변경)  -->
+			<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.5</version>
+			</dependency>
+		
+		// contentView.jsp
+			<%@ page language="java" contentType="text/html; charset=UTF-8"
+				pageEncoding="UTF-8"%>
+			<!DOCTYPE html>
+			<html>
+			<head>
+			<meta charset="UTF-8">
+			<title>Insert title here</title>
+			<style type="text/css">
+			#modal_wrap {
+				display: none;
+				position: fixed;
+				z-index: 9;
+				margin: 0 auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.4);
+			}
+
+			#first {
+				position: fixed;
+				z-index: 10;
+				margin: 0 auto;
+				top: 30px;
+				left: 0;
+				right: 0;
+				display: none;
+				background-color: rgba(212, 244, 250, 0.9);
+				height: 350px;
+				width: 300px;
+			}
+			</style>
+			<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+			<script type="text/javascript">
+				function slideClick() {
+					$("#first").slideDown('slow');
+					$("#modal_wrap").show();
+				}
+				function slide_hide() {
+					$("#first").slideUp('fast');
+					$("#modal_wrap").hide();
+				}
+				function rep() {
+					/*
+					var title = ${"#title"}.val();
+					var content = $("#content").val();
+					let form = {t : title , c : content};
+					*/
+					let form = {};
+					let arr = $("#frm").serializeArray()
+					/*
+					arr = [{name:write_no, value:"입력값"},{name:title,value:"입력값"},{}...]
+					*/
+					for (i = 0; i < arr.length; i++) {
+						form[arr[i].name] = arr[i].value;
+					}
+					/*
+					form = {write_no : "입력값" , title : "입력값" , write_no : "입력값"}
+					*/
+					$.ajax({
+						url : "addReply",
+						type : "POST",
+						dataType : "json",
+						data : JSON.stringify(form),
+						contentType : "application/json;charset=utf-8",
+						success : function(list) {
+							alert("성공적으로 답글이 달렸습니다.");
+							slide_hide();
+						},
+						error : function() {
+							alert("문제 발생!")
+						}
+					});
+				}
+			</script>
+			</head>
+			<body>
+				<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+				<div id="modal_wrap">
+					<div id="first">
+						<div style="width: 250px; margin: 0 auto; padding-top: 20px;">
+							<form id="frm">
+								<input type="hidden" name="write_no"
+									value="${personalData.writeNo}"> <b>답글 작성 페이지</b>
+								<hr>
+								<b>작성자 : ${loginUser}</b>
+								<hr>
+								<b>제목</b><br>
+								<input type="text" id="title" size="30" name="title">
+								<hr>
+								<b>내용</b><br>
+								<textarea name="content" id="content" rows="5" cols="30"></textarea>
+								<hr>
+								<button type="button" onclick="rep()">답글</button>
+								<button type="button" onclick="slide_hide()">취소</button>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+				<c:import url="../default/header.jsp" />
+				<table border="1" align="center">
+					<caption>
+						<font size="5"><b>개인 정보</b></font>
+					</caption>
+					<tr>
+						<th width="100">글 번호</th>
+						<td width="200">${personalData.writeNo}</td>
+						<th width="100">작성자</th>
+						<td width="200">${personalData.id}</td>
+					</tr>
+					<tr>
+						<th>제목</th>
+						<td>${personalData.title}</td>
+						<th>등록일자</th>
+						<td>${personalData.saveDate}</td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td>${personalData.content}</td>
+						<td colspan="2"><c:if
+								test="${ personalData.imageFileName != 'nan' }">
+								<img width="200px" height="100px"
+									src="${contextPath}/board/download?imageFileName=${personalData.imageFileName}">
+							</c:if></td>
+					</tr>
+					<tr>
+						<td colspan="4" align="center"><c:if
+								test="${ loginUser == personalData.id }">
+								<input type="button" value="수정하기"
+									onclick="location.href='${contextPath}/board/modify_form?writeNo=${personalData.writeNo}'">
+								<input type="button" value="삭제하기"
+									onclick="location.href='${contextPath}/board/delete?writeNo=${personalData.writeNo}&imageFileName=${personalData.imageFileName}'">
+							</c:if> <input type="button" onclick="slideClick()" value="답글달기"> <input
+							type="button" onclick="" value="리스트로 돌아가기"></td>
+					</tr>
+				</table>
+				<c:import url="../default/footer.jsp" />
+
+			</body>
+			</html>
+			
+		// BoardRepController @RestController
+			@RestController
+			@RequestMapping("/board")
+			public class BoardRepController implements MemberSessionName{
+				@Autowired BoardService bs;
+				
+				@PostMapping(value="addReply", produces = "application/json; charset=utf-8")
+				public String addReply(@RequestBody Map<String, Object> map, HttpSession session){
+
+			   BoardRepDTO dto = new BoardRepDTO();
+			   dto.setId( (String)session.getAttribute(LOGIN) );
+			   dto.setWrite_group( Integer.parseInt((String)map.get("write_no")) );
+			   dto.setTitle((String)map.get("title"));
+			   dto.setContent((String)map.get("content"));
+
+			   bs.addReply(dto);
+			   return "{\"result\" : true}";
+				}
+			}
+		// sql문
+			<insert id="addReply">
+				insert into reply
+				(id,title,content,write_group)
+				values
+				(#{id},#{title},#{content},#{write_group})
+			</insert>
+
+	// reply 값 돌려받기
+		// jsp
+		function replyData(){
+		  $.ajax({
+			 url:"replyData/"+${personalData.writeNo}, type:"GET", 
+			 dataType:"json",
+			 success: function(rep){
+				let html = ""
+				rep.forEach(function(data){
+				   let date = new Date(data.write_date)
+				   let writeDate = date.getFullYear()+"년"+(date.getMonth()+1)+"월"
+				   writeDate += date.getDate()+"일"+date.getHours()+"시"
+				   writeDate += date.getMinutes()+"분"+date.getSeconds()+"초"
+				   html += "<div align='left'><b>아이디 : </b>"+data.id+"님 / ";
+				   html += "<b>작성일</b> : "+writeDate+"<br>"
+				   html += "<b>제목</b> : "+data.title+"<br>"
+				   html += "<b>내용</b> : "+data.content+"<hr></div>"
+				})
+				$("#reply").html(html)
+			 },error:function(){
+				alert('데이터를 가져올 수 없습니다')
+			 }
+		  })
+	   }		
+		// sql문
+			<select id="getRepList" resultMap="reply">
+				select * from reply where write_group=#{write_group} order by write_date desc
+			</select>
+
+	// 페이징 처리
+		// BoardController boardAllView 파라미터 받기
+			@RequestParam(required = false, defaultValue = "1") int num
+		// 값이 없으면 1로 보내줄꺼고 값을 보내주면 보내준 값으로 쓰겠다
+		// 서비스 쪽으로 넘겨줌
+			bs.boardAllList(model,num);
+		// 서비스 연산
+			public void boardAllList(Model model, int num) {
+				// TODO Auto-generated method stub
+				int pageLetter = 3; // 한페이지에 보여줄 글 개수
+				int allCount = mapper.selectBoardCount(); // 총 개수
+				int repeat = allCount/pageLetter; // 반복횟수 및 총 페이지 수 
+				if(allCount % pageLetter != 0) {
+					repeat += 1;
+				} // 나누고 3미만이 남았다면은 그 수를 담을 페이지 한 개 더 추가
+				int end = num * pageLetter; // 보여줄 글 끝값
+				int start = end +1 - pageLetter; // 보여줄 글 시작값
+				model.addAttribute("repeat",repeat);
+				model.addAttribute("boardList",mapper.boardAllList(start,end)); // 보여주는 글의 시작과 끝 값 삽입
+			}
+		// mapper 수정
+			public List<BoardDTO> boardAllList(@Param("s") int start,@Param("e") int end); 
+			// 두 개 이상 매개변수를 넣을 시 param 넣어야 함
+		// sql 문 
+			<select id="boardAllList" resultMap="board">
+				select B.* from(select rownum rn, A.* from
+				(select * from mvc_board order by write_no desc)A)B where rn between #{s} and
+				#{e}
+			</select>
+			<select id="selectBoardCount" resultType="Integer">
+				select count(*) from mvc_board
+			</select>
+
+		// jsp 문
+			<select id="boardAllList" resultMap="board">
+				select B.* from(select rownum rn, A.* from
+				(select * from mvc_board order by write_no desc)A)B where rn between #{s} and
+				#{e}
+			</select>
+			<select id="selectBoardCount" resultType="Integer">
+				select count(*) from mvc_board
+			</select>
+
+월요일
+AOP , 트랜잭션, 차트 ( 구글 API 가져다 쓰는 방법 )
+화요일부터 spring boot 할 예정
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
