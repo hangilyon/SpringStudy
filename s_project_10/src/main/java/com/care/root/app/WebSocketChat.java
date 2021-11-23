@@ -3,6 +3,8 @@ package com.care.root.app;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.websocket.OnClose;
+import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.Session;
@@ -33,7 +35,7 @@ public class WebSocketChat {
 		sessionList.add(session);
 	}
 	/*
-	 * 모든 사용자에게 메시지를 번달한다
+	 * 모든 사용자에게 메시지를 전달한다
 	 * @param self
 	 * @param sender
 	 * @param message
@@ -49,6 +51,30 @@ public class WebSocketChat {
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	/*
+	 * 내가 입력하는 메세지
+	 * @param message
+	 * @param session
+	 */
+	@OnMessage
+	public void onMessage(String message, Session session) {
+		String sender = message.split(",")[1];
+		message = message.split(",")[0];
+		
+		logger.info("Message From "+sender + ": "+message);
+		try {
+			final Basic basic = session.getBasicRemote();
+			basic.sendText("<나> : " + message);
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		sendAllSessionToMessage(session, sender, message);
+	}
+	@OnClose
+	public void onClose(Session session) {
+		logger.info("Session " + session.getId() + " has ended");
+		sessionList.remove(session);
 	}
 	
 }
