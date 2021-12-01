@@ -37,7 +37,7 @@ public class HomeController {
 		
 		return "home";
 	}
-	@GetMapping("index")
+	@GetMapping("/root/index")
 	public String index() {
 		System.out.println("index 컨트롤러 실행");
 		return "index";

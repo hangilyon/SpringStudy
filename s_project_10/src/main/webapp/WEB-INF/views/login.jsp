@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page session="false" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@
 				<div class="panel-title">환영합니다!</div>
 			</div>
 				<div class="panel-body">
-					<form id="login-form" method="post" action="/loginProcess.do">
+					<form id="login-form" method="post" action="${contextPath }/app/loginProcess">
 						<div>
 							<input type="text" name="id" class="form-control" name="아이디 입력" placeholder="Username" autofocus>
 						</div>

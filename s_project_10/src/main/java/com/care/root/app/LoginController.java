@@ -15,11 +15,11 @@ public class LoginController {
 	private static final Logger logger
 		= LoggerFactory.getLogger(LoginController.class);
 	
-	@RequestMapping(value="/login.do", method = RequestMethod.GET)
+	@RequestMapping(value="/app/login", method = RequestMethod.GET)
 	public String login() {
 		return "login";
 	}
-	@RequestMapping(value="/loginProcess.do" , method=RequestMethod.POST)
+	@RequestMapping(value="/app/loginProcess" , method=RequestMethod.POST)
 	public String loginProcess(@RequestParam String id,
 			HttpServletRequest request) {
 		logger.info("Welcome"+id);
